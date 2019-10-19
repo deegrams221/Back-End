@@ -42,3 +42,5 @@ Spring Boot
 Deployment to Heroku: http://bw-vacaplanner.herokuapp.com/
 
 Swagger-UI
+
+*Going to add pdf of swagger-ui documentation here
