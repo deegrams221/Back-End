@@ -12,6 +12,7 @@ import java.util.List;
 @Table(name = "roles")
 public class Role extends Auditable
 {
+    // fields
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long roleid;
@@ -20,15 +21,18 @@ public class Role extends Auditable
             unique = true)
     private String name;
 
+    // map one to many - userroles
     @OneToMany(mappedBy = "role",
             cascade = CascadeType.ALL)
     @JsonIgnoreProperties("role")
     private List<UserRoles> userroles = new ArrayList<>();
 
+    // default constructor
     public Role()
     {
     }
 
+    // getters/setters
     public Role(String name)
     {
         this.name = name.toUpperCase();

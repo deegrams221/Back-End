@@ -14,6 +14,7 @@ import java.util.Map;
 // adapted from https://tools.ietf.org/html/rfc7807
 public class ErrorDetail
 {
+    // fields
     private String title;
     private int status;
     private String detail;
@@ -21,6 +22,7 @@ public class ErrorDetail
     private String developerMessage;
     private Map<String, List<ValidationError>> errors = new HashMap<String, List<ValidationError>>();
 
+    // getters/setters
     public String getTitle()
     {
         return title;

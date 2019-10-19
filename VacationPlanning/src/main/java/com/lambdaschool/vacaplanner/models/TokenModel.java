@@ -5,11 +5,13 @@ import com.lambdaschool.vacaplanner.logging.Loggable;
 @Loggable
 public class TokenModel
 {
+    // Fields
     private String access_token;
     private String token_type;
     private int expires_in;
     private String scope;
 
+    // getters/setters
     public String getAccess_token()
     {
         return access_token;

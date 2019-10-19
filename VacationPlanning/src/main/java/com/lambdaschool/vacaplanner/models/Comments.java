@@ -2,8 +2,7 @@ package com.lambdaschool.vacaplanner.models;
 
 import com.lambdaschool.vacaplanner.logging.Loggable;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Loggable
 @Entity
@@ -11,12 +10,53 @@ import javax.persistence.Table;
 public class Comments
 {
     // Fields
+    // id, user, detail
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long comid;
+
+    @Column(nullable = false)
+    private String detail;
 
     // default constructor
+    public Comments()
+    {
+    }
 
     // constructor
+    public Comments(String detail)
+    {
+        this.detail = detail;
+    }
 
     // getters/setters
+    public long getComid()
+    {
+        return comid;
+    }
+
+    public void setComid(long comid)
+    {
+        this.comid = comid;
+    }
+
+    public String getDetail()
+    {
+        return detail;
+    }
+
+    public void setDetail(String detail)
+    {
+        this.detail = detail;
+    }
 
     // toString
+    @Override
+    public String toString()
+    {
+        return "Comments{" +
+                "comid=" + comid +
+                ", detail='" + detail + '\'' +
+                '}';
+    }
 }

@@ -6,10 +6,12 @@ import com.lambdaschool.vacaplanner.logging.Loggable;
 @Loggable
 public class UserMinimum // very min needed for creating a user
 {
+    // Fields
     private String username;
     private String password;
     private String email;
 
+    // getters/setters
     public String getUsername()
     {
         return username;

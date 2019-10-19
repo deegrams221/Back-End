@@ -5,9 +5,11 @@ import com.lambdaschool.vacaplanner.logging.Loggable;
 @Loggable // for custom swagger documentation - see SwaggerManualApiPlugin, ln 54
 public class UserLogin
 {
+    // Fields
     private String username;
     private String password;
 
+    // getters/setters
     public String getUsername()
     {
         return username;

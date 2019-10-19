@@ -19,6 +19,8 @@ import java.util.List;
 @Table(name = "users")
 public class User extends Auditable
 {
+    // Fields
+    // id, username, password, email
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long userid;
@@ -36,21 +38,43 @@ public class User extends Auditable
     @Email
     private String email;
 
+    // map one to many - userroles
     @OneToMany(mappedBy = "user",
             cascade = CascadeType.ALL)
     @JsonIgnoreProperties("user")
     private List<UserRoles> userroles = new ArrayList<>();
 
+    // map one to many - useremails
     @OneToMany(mappedBy = "user",
             cascade = CascadeType.ALL,
             orphanRemoval = true)
     @JsonIgnoreProperties("user")
     private List<Useremail> useremails = new ArrayList<>();
 
+    // map many to many - vacations
+    @ManyToMany(mappedBy = "user",
+            cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("user")
+    private List<Vacations> vacations = new ArrayList<>();
+
+    // map many to many - todos
+    @ManyToMany(mappedBy = "user",
+            cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("user")
+    private List<Todos> todos = new ArrayList<>();
+
+    // map one to many - comments
+    @OneToMany(mappedBy = "user",
+            cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("user")
+    private List<Comments> comments = new ArrayList<>();
+
+    // default constructor
     public User()
     {
     }
 
+    // constructor
     public User(String username,
                 String password,
                 String email,
@@ -66,6 +90,7 @@ public class User extends Auditable
         this.userroles = userRoles;
     }
 
+    // getters/setters
     public long getUserid()
     {
         return userid;
@@ -160,9 +185,51 @@ public class User extends Auditable
         return rtnList;
     }
 
+    public List<Vacations> getVacations()
+    {
+        return vacations;
+    }
+
+    public void setVacations(List<Vacations> vacations)
+    {
+        this.vacations = vacations;
+    }
+
+    public List<Todos> getTodos()
+    {
+        return todos;
+    }
+
+    public void setTodos(List<Todos> todos)
+    {
+        this.todos = todos;
+    }
+
+    public List<Comments> getComments()
+    {
+        return comments;
+    }
+
+    public void setComments(List<Comments> comments)
+    {
+        this.comments = comments;
+    }
+
+    // toString
+
     @Override
     public String toString()
     {
-        return "User{" + "userid=" + userid + ", username='" + username + '\'' + ", password='" + password + '\'' + ", email='" + email + '\'' + ", userroles=" + userroles + ", useremails=" + useremails + '}';
+        return "User{" +
+                "userid=" + userid +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", userroles=" + userroles +
+                ", useremails=" + useremails +
+                ", vacations=" + vacations +
+                ", todos=" + todos +
+                ", comments=" + comments +
+                '}';
     }
 }

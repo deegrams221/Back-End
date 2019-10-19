@@ -12,6 +12,7 @@ import javax.validation.constraints.Email;
         uniqueConstraints = {@UniqueConstraint(columnNames = {"userid", "useremail"})})
 public class Useremail extends Auditable
 {
+    // Fields
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long useremailid;
@@ -20,16 +21,20 @@ public class Useremail extends Auditable
     @Email
     private String useremail;
 
+    // map many to one - useremails
     @ManyToOne
     @JoinColumn(name = "userid",
             nullable = false)
     @JsonIgnoreProperties("useremails")
+
     private User user;
 
+    // default constructor
     public Useremail()
     {
     }
 
+    // constructor
     public Useremail(User user,
                      String useremail)
     {
@@ -37,6 +42,7 @@ public class Useremail extends Auditable
         this.user = user;
     }
 
+    // getters/setters
     public long getUseremailid()
     {
         return useremailid;
@@ -73,6 +79,7 @@ public class Useremail extends Auditable
         this.user = user;
     }
 
+    // toString
     @Override
     public String toString() {
         return "Useremail{" +

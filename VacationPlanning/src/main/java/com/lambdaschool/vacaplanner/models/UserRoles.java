@@ -13,22 +13,26 @@ import java.util.Objects;
         uniqueConstraints = {@UniqueConstraint(columnNames = {"userid", "roleid"})})
 public class UserRoles extends Auditable implements Serializable
 {
+    // Fields
     @Id
     @ManyToOne
     @JoinColumn(name = "userid")
     @JsonIgnoreProperties("userroles")
     private User user;
 
+    // map many to one - userroles
     @Id
     @ManyToOne
     @JoinColumn(name = "roleid")
     @JsonIgnoreProperties("userroles")
     private Role role;
 
+    // default constructor
     public UserRoles()
     {
     }
 
+    // constructor
     public UserRoles(User user,
                      Role role)
     {
@@ -36,6 +40,7 @@ public class UserRoles extends Auditable implements Serializable
         this.role = role;
     }
 
+    // getters/setters
     public User getUser()
     {
         return user;
@@ -78,6 +83,7 @@ public class UserRoles extends Auditable implements Serializable
                 getRole());
     }
 
+    // toString
     @Override
     public String toString()
     {
