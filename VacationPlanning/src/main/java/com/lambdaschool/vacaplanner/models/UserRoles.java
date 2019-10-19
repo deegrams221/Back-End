@@ -10,7 +10,7 @@ import java.util.Objects;
 @Loggable
 @Entity
 @Table(name = "userroles",
-       uniqueConstraints = {@UniqueConstraint(columnNames = {"userid", "roleid"})})
+        uniqueConstraints = {@UniqueConstraint(columnNames = {"userid", "roleid"})})
 public class UserRoles extends Auditable implements Serializable
 {
     @Id
@@ -75,7 +75,7 @@ public class UserRoles extends Auditable implements Serializable
     public int hashCode()
     {
         return Objects.hash(getUser(),
-                            getRole());
+                getRole());
     }
 
     @Override

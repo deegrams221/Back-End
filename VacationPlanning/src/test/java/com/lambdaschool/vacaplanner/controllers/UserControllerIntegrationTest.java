@@ -187,7 +187,7 @@ public class UserControllerIntegrationTest
     public void F_givenPostAUser() throws Exception
     {
         mockMvc.perform(MockMvcRequestBuilders.post("/users/user")
-                                              .content("{\"username\": \"Ginger\", \"password\": \"EATEATEAT\", \"primaryemail\" : \"ginger@home.local\"}")
+                                              .content("{\"username\": \"Ginger\", \"password\": \"EATEATEAT\", \"email\" : \"ginger@home.local\"}")
                                               .contentType(MediaType.APPLICATION_JSON)
                                               .accept(MediaType.APPLICATION_JSON))
                .andDo(print())

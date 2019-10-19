@@ -24,8 +24,8 @@ public class UseremailServiceImpl implements UseremailService
     {
         List<Useremail> list = new ArrayList<>();
         useremailrepos.findAll()
-                      .iterator()
-                      .forEachRemaining(list::add);
+                .iterator()
+                .forEachRemaining(list::add);
         return list;
     }
 
@@ -33,7 +33,7 @@ public class UseremailServiceImpl implements UseremailService
     public Useremail findUseremailById(long id)
     {
         return useremailrepos.findById(id)
-                             .orElseThrow(() -> new ResourceNotFoundException("Useremail with id " + id + " Not Found!"));
+                .orElseThrow(() -> new ResourceNotFoundException("Useremail with id " + id + " Not Found!"));
     }
 
     @Override
@@ -41,7 +41,7 @@ public class UseremailServiceImpl implements UseremailService
                                           boolean isAdmin)
     {
         Authentication authentication = SecurityContextHolder.getContext()
-                                                             .getAuthentication();
+                .getAuthentication();
         if (username.equalsIgnoreCase(authentication.getName().toLowerCase()) || isAdmin)
         {
             return useremailrepos.findAllByUser_Username(username.toLowerCase());
@@ -57,15 +57,15 @@ public class UseremailServiceImpl implements UseremailService
                        boolean isAdmin)
     {
         if (useremailrepos.findById(id)
-                          .isPresent())
+                .isPresent())
         {
             Authentication authentication = SecurityContextHolder.getContext()
-                                                                 .getAuthentication();
+                    .getAuthentication();
             if (useremailrepos.findById(id)
-                              .get()
-                              .getUser()
-                              .getUsername()
-                              .equalsIgnoreCase(authentication.getName()) || isAdmin)
+                    .get()
+                    .getUser()
+                    .getUsername()
+                    .equalsIgnoreCase(authentication.getName()) || isAdmin)
             {
                 useremailrepos.deleteById(id);
             } else
@@ -84,15 +84,15 @@ public class UseremailServiceImpl implements UseremailService
                             boolean isAdmin)
     {
         Authentication authentication = SecurityContextHolder.getContext()
-                                                             .getAuthentication();
+                .getAuthentication();
         if (useremailrepos.findById(useremailid)
-                          .isPresent())
+                .isPresent())
         {
             if (useremailrepos.findById(useremailid)
-                              .get()
-                              .getUser()
-                              .getUsername()
-                              .equalsIgnoreCase(authentication.getName()) || isAdmin)
+                    .get()
+                    .getUser()
+                    .getUsername()
+                    .equalsIgnoreCase(authentication.getName()) || isAdmin)
             {
                 Useremail useremail = findUseremailById(useremailid);
                 useremail.setUseremail(emailaddress.toLowerCase());

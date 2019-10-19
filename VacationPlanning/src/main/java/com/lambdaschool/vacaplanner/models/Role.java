@@ -21,7 +21,7 @@ public class Role extends Auditable
     private String name;
 
     @OneToMany(mappedBy = "role",
-               cascade = CascadeType.ALL)
+            cascade = CascadeType.ALL)
     @JsonIgnoreProperties("role")
     private List<UserRoles> userroles = new ArrayList<>();
 

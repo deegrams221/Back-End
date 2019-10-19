@@ -25,7 +25,7 @@ public class User extends Auditable
 
     @Column(nullable = false,
             unique = true)
-    private String name;
+    private String username;
 
     @Column(nullable = false)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
@@ -37,13 +37,13 @@ public class User extends Auditable
     private String email;
 
     @OneToMany(mappedBy = "user",
-               cascade = CascadeType.ALL)
+            cascade = CascadeType.ALL)
     @JsonIgnoreProperties("user")
     private List<UserRoles> userroles = new ArrayList<>();
 
     @OneToMany(mappedBy = "user",
-               cascade = CascadeType.ALL,
-               orphanRemoval = true)
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
     @JsonIgnoreProperties("user")
     private List<Useremail> useremails = new ArrayList<>();
 
@@ -51,12 +51,12 @@ public class User extends Auditable
     {
     }
 
-    public User(String name,
+    public User(String username,
                 String password,
                 String email,
                 List<UserRoles> userRoles)
     {
-        setName(name);
+        setUsername(username);
         setPassword(password);
         this.email = email;
         for (UserRoles ur : userRoles)
@@ -76,20 +76,20 @@ public class User extends Auditable
         this.userid = userid;
     }
 
-    public String getName()
+    public String getUsername()
     {
-        if (name == null) // this is possible when updating a user
+        if (username == null) // this is possible when updating a user
         {
             return null;
         } else
         {
-            return name.toLowerCase();
+            return username.toLowerCase();
         }
     }
 
-    public void setName(String name)
+    public void setUsername(String username)
     {
-        this.name = name.toLowerCase();
+        this.username = username.toLowerCase();
     }
 
     public String getEmail()
@@ -152,8 +152,8 @@ public class User extends Auditable
         for (UserRoles r : this.userroles)
         {
             String myRole = "ROLE_" + r.getRole()
-                                       .getName()
-                                       .toUpperCase();
+                    .getName()
+                    .toUpperCase();
             rtnList.add(new SimpleGrantedAuthority(myRole));
         }
 
@@ -161,14 +161,8 @@ public class User extends Auditable
     }
 
     @Override
-    public String toString() {
-        return "User{" +
-                "userid=" + userid +
-                ", name='" + name + '\'' +
-                ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
-                ", userroles=" + userroles +
-                ", useremails=" + useremails +
-                '}';
+    public String toString()
+    {
+        return "User{" + "userid=" + userid + ", username='" + username + '\'' + ", password='" + password + '\'' + ", email='" + email + '\'' + ", userroles=" + userroles + ", useremails=" + useremails + '}';
     }
 }

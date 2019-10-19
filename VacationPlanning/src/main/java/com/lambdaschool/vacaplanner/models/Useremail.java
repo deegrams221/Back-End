@@ -9,7 +9,7 @@ import javax.validation.constraints.Email;
 @Loggable
 @Entity
 @Table(name = "useremails",
-       uniqueConstraints = {@UniqueConstraint(columnNames = {"userid", "useremail"})})
+        uniqueConstraints = {@UniqueConstraint(columnNames = {"userid", "useremail"})})
 public class Useremail extends Auditable
 {
     @Id
@@ -22,7 +22,7 @@ public class Useremail extends Auditable
 
     @ManyToOne
     @JoinColumn(name = "userid",
-                nullable = false)
+            nullable = false)
     @JsonIgnoreProperties("useremails")
     private User user;
 

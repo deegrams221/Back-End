@@ -279,7 +279,7 @@ public class UserControllerUnitTest
         u1.setUserid(100);
         u1.setUsername("tiger");
         u1.setPassword("ILuvM4th!");
-        u1.setPrimaryemail("tiger@home.local");
+        u1.setEmail("tiger@home.local");
         u1.setUserroles(thisRole);
         u1.setUseremails(thisEmail);
 
@@ -304,7 +304,7 @@ public class UserControllerUnitTest
         User u1 = new User();
         u1.setUserid(100);
         u1.setUsername("tigerUpdated");
-        u1.setPrimaryemail("home@local.home");
+        u1.setEmail("home@local.home");
         u1.setPassword("ILuvM4th!");
 
         Mockito.when(userService.update(u1, 100L, true)).thenReturn(userList.get(0));
