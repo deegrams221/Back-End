@@ -1,4 +1,7 @@
 package com.lambdaschool.vacaplanner.services;
 
-public interface CommentService {
+
+public interface CommentService
+{
+
 }

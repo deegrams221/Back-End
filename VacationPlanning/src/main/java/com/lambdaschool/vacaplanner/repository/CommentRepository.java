@@ -1,6 +1,9 @@
 package com.lambdaschool.vacaplanner.repository;
 
-public interface CommentRepository
+import com.lambdaschool.vacaplanner.models.Comments;
+import org.springframework.data.repository.CrudRepository;
+
+public interface CommentRepository extends CrudRepository<Comments, Long>
 {
 
 }
