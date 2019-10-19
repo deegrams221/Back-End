@@ -1,5 +1,6 @@
 package com.lambdaschool.vacaplanner.repository;
 
-public interface CommentRepository {
+public interface CommentRepository
+{
 
 }
