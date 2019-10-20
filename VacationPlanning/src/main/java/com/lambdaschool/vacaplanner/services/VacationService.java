@@ -4,13 +4,15 @@ import com.lambdaschool.vacaplanner.models.Vacations;
 
 public interface VacationService
 {
-    Vacations findVacationById(long id);
+    Vacations findVacationById(long vacaid);
 
     Vacations findByPlace(String place);
 
-    void delete(long id);
+    void delete(long vacaid);
 
     Vacations save(Vacations vacations);
 
-    Vacations update(Vacations vacations, long id);
+    Vacations update(Vacations vacations,
+                     long vacaid,
+                     boolean isUser);
 }

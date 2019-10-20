@@ -4,13 +4,13 @@ import com.lambdaschool.vacaplanner.models.Todos;
 
 public interface TodoService
 {
-    Todos findTodoById(long id);
+    Todos findTodoById(long todoid);
 
     Todos findByTitle(String title);
 
-    void delete(long id);
+    void delete(long todoid);
 
     Todos save(Todos todos);
 
-    Todos update(Todos todos, long id);
+    Todos update(Todos todos, long todoid);
 }
