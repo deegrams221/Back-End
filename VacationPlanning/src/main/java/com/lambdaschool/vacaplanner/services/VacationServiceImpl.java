@@ -4,7 +4,6 @@ import com.lambdaschool.vacaplanner.exceptions.ResourceNotFoundException;
 import com.lambdaschool.vacaplanner.models.Vacations;
 import com.lambdaschool.vacaplanner.repository.VacationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
 
 public class VacationServiceImpl implements VacationService
 {

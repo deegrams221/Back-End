@@ -10,7 +10,7 @@ public interface UseremailService
 
     Useremail findUseremailById(long id);
 
-    List<Useremail> findByUsername(String username,
+    List<Useremail> findByUserName(String userName,
                                    boolean isAdmin);
 
     void delete(long id,

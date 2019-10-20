@@ -38,14 +38,14 @@ public class UseremailServiceImpl implements UseremailService
     }
 
     @Override
-    public List<Useremail> findByUsername(String username,
+    public List<Useremail> findByUserName(String userName,
                                           boolean isAdmin)
     {
         Authentication authentication = SecurityContextHolder.getContext()
                 .getAuthentication();
-        if (username.equalsIgnoreCase(authentication.getName().toLowerCase()) || isAdmin)
+        if (userName.equalsIgnoreCase(authentication.getName().toLowerCase()) || isAdmin)
         {
-            return useremailrepos.findAllByUser_Username(username.toLowerCase());
+            return useremailrepos.findAllByUser_UserName(userName.toLowerCase());
         } else
         {
             throw new ResourceNotFoundException(authentication.getName() + " not authorized to make change");
