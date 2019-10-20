@@ -8,16 +8,15 @@ import java.util.List;
 
 public interface CommentService
 {
+    List<Comments> findAll(Pageable pageable);
+
     Comments findCommentById(long comid);
 
-    List<Comments> findAllByVacaId(long vacaid,
-                                   Pageable pageable);
+    List<Comments> findByVacation(String vacation,
+                                  boolean isUser);
 
     void deleteComment(long comid);
 
     Comments save(Comments comments);
 
-    Comments update(Comments comments,
-                    long comid,
-                    boolean isUser);
 }

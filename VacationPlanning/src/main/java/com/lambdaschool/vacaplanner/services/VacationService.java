@@ -11,8 +11,4 @@ public interface VacationService
     void delete(long vacaid);
 
     Vacations save(Vacations vacations);
-
-    Vacations update(Vacations vacations,
-                     long vacaid,
-                     boolean isUser);
 }

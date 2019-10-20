@@ -33,11 +33,12 @@ public class UseremailServiceImpl implements UseremailService
     public Useremail findUseremailById(long id)
     {
         return useremailrepos.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Useremail with id " + id + " Not Found!"));
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "Useremail with id " + id + " Not Found!"));
     }
 
     @Override
-    public List<Useremail> findByUserName(String username,
+    public List<Useremail> findByUsername(String username,
                                           boolean isAdmin)
     {
         Authentication authentication = SecurityContextHolder.getContext()

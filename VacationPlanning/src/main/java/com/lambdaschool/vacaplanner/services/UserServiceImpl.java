@@ -51,7 +51,8 @@ public class UserServiceImpl implements UserDetailsService,
     public User findUserById(long id) throws ResourceNotFoundException
     {
         return userrepos.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("User id " + id + " not found!"));
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "User id " + id + " not found!"));
     }
 
     @Override
@@ -77,7 +78,8 @@ public class UserServiceImpl implements UserDetailsService,
     public void delete(long id)
     {
         userrepos.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("User id " + id + " not found!"));
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "User id " + id + " not found!"));
         userrepos.deleteById(id);
     }
 
@@ -161,7 +163,8 @@ public class UserServiceImpl implements UserDetailsService,
             if (user.getUserroles()
                     .size() > 0)
             {
-                throw new ResourceFoundException("User Roles are not updated through User. See endpoint POST: users/user/{userid}/role/{roleid}");
+                throw new ResourceFoundException(
+                        "User Roles are not updated through User. See endpoint POST: users/user/{userid}/role/{roleid}");
             }
 
             if (user.getUseremails()
