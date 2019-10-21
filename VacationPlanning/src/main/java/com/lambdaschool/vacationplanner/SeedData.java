@@ -63,9 +63,17 @@ public class SeedData implements CommandLineRunner
 
         User u1 = new User("Admin", "password", "admin@lambda.school", admin);
         User u2 = new User("Vivi", "password", "vivi@lambda.school", user);
+        user = new ArrayList<>();
+        user.add(new UserRoles(new User(), r2));
         User u3 = new User("Cloud", "password", "cloud@lambda.school",user);
+        user = new ArrayList<>();
+        user.add(new UserRoles(new User(), r2));
         User u4 = new User("Leonhart", "password", "leonhart@lambda.school",user);
+        user = new ArrayList<>();
+        user.add(new UserRoles(new User(), r2));
         User u5 = new User("Yuna", "password", "yuna@lambda.school",user);
+        user = new ArrayList<>();
+        user.add(new UserRoles(new User(), r2));
         User u6 = new User("Sephiroth", "password", "sephiroth@lambda.school",user);
 
 
@@ -75,10 +83,6 @@ public class SeedData implements CommandLineRunner
         u3.getVacation().add(new Vacations("Rome", "2019-10-20", u3));
         u4.getVacation().add(new Vacations("Disney World", "2019-10-20", u4));
         u5.getVacation().add(new Vacations("Disneyland", "2019-10-20", u5));
-
-//        u1.getTodo().add(new Todos("Feed the birds", "Go feed the birds at the beach"));
-//        u1.getTodo().add(new Todos("Surf Lessons", "Learn to surf!"));
-//        u4.getTodo().add(new Todos("Say hi!", "Let's see Mickey Mouse and say hi!"));
 
         userrepos.save(u1);
         userrepos.save(u2);
