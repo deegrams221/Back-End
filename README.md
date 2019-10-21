@@ -43,4 +43,4 @@ Deployment to Heroku: http://bw-vacaplanner.herokuapp.com/
 
 Swagger-UI
 
-*Going to add pdf of swagger-ui documentation here
+http://bw-vacaplanning.herokuapp.com/swagger-ui.html
