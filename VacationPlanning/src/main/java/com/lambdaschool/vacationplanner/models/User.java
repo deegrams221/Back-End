@@ -44,13 +44,6 @@ public class User extends Auditable
     @JsonIgnoreProperties("user")
     private List<UserRoles> userroles = new ArrayList<>();
 
-    // map one to many - useremails
-    @OneToMany(mappedBy = "user",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true)
-    @JsonIgnoreProperties("user")
-    private List<Useremail> useremails = new ArrayList<>();
-
     // map one to many - vacations
     @OneToMany(mappedBy = "user",
             cascade = CascadeType.ALL,
@@ -153,16 +146,6 @@ public class User extends Auditable
     public void setUserroles(List<UserRoles> userroles)
     {
         this.userroles = userroles;
-    }
-
-    public List<Useremail> getUseremails()
-    {
-        return useremails;
-    }
-
-    public void setUseremails(List<Useremail> useremails)
-    {
-        this.useremails = useremails;
     }
 
     @JsonIgnore

@@ -87,7 +87,8 @@ public class OpenController
         {
             // return the access token
             RestTemplate restTemplate = new RestTemplate();
-            String requestURI = "http://" + httpServletRequest.getServerName() + ":" + httpServletRequest.getLocalPort() + "/login";
+            String requestURI = "http://" + httpServletRequest.getServerName()
+                    + ":" + httpServletRequest.getLocalPort() + "/login";
 
             List<MediaType> acceptableMediaTypes = new ArrayList<>();
             acceptableMediaTypes.add(MediaType.APPLICATION_JSON);
@@ -98,12 +99,13 @@ public class OpenController
             headers.setBasicAuth(System.getenv("OAUTHCLIENTID"),
                     System.getenv("OAUTHCLIENTSECRET"));
 
+
             MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
             map.add("grant_type",
                     "password");
             map.add("scope",
                     "read write trust");
-            map.add("name",
+            map.add("username",
                     newminuser.getUsername());
             map.add("password",
                     newminuser.getPassword());
@@ -115,7 +117,8 @@ public class OpenController
                     request,
                     String.class);
         }
-        return new ResponseEntity<>(theToken,
+        return new ResponseEntity<>(
+                theToken,
                 responseHeaders,
                 HttpStatus.CREATED);
     }

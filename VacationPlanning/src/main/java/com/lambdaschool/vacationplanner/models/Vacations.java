@@ -25,9 +25,13 @@ public class Vacations extends Auditable
     @Column(nullable = false)
     private String place;
 
-    @Column
+    @Transient
     private String pattern = "yyyy-MM-dd";
+
+    @Transient
     private SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+
+    @Column
     private String date = simpleDateFormat.format(new Date());
 
     // map one to many - todos

@@ -2,14 +2,22 @@ package com.lambdaschool.vacationplanner.models;
 
 import com.lambdaschool.vacationplanner.logging.Loggable;
 
-// not an entiry - wont show up in database
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+// not an entity - wont show up in database
+//@Entity
 @Loggable
+//@Table(name = "usermins")
 public class UserMinimum // very min needed for creating a user
 {
     // Fields
     private String username;
     private String password;
     private String email;
+
+    // constructors
+
 
     // getters/setters
     public String getUsername()
