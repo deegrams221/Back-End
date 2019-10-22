@@ -46,15 +46,24 @@ Swagger-UI
 http://bw-vacaplanning.herokuapp.com/swagger-ui.html
 
 LOGIN EXAMPLE:
+
 {
+
    "username": "ExampleName"
+   
    "password": "examplePassword123!"
+   
 }
 
 CREATE NEW USER EXAMPLE:
+
 {
+
    "email"   : "example@schoolemail.com"  *Must be unique email*
+   
    "password": "examplePassword123!"
+   
    "username": "ExampleName"              *Must be unique username*
+   
 }
 
