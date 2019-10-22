@@ -52,11 +52,16 @@ public class User extends Auditable
     private List<Vacations> vacations = new ArrayList<>();
 
     // map one to many - comments
-//    @OneToMany(mappedBy = "user",
-//            cascade = CascadeType.ALL)
-//    @JsonIgnoreProperties("user")
-//    private List<Comments> comments = new ArrayList<>();
+    @OneToMany(mappedBy = "user",
+            cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("user")
+    private List<Comments> comments = new ArrayList<>();
 
+    // map one to many - todos
+    @OneToMany(mappedBy = "user",
+            cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("user")
+    private List<Todos> todos = new ArrayList<>();
 
     // default constructor
     public User()
@@ -164,14 +169,30 @@ public class User extends Auditable
         return rtnList;
     }
     //
-    public List<Vacations> getVacation()
+    public List<Vacations> getVacations()
     {
         return vacations;
     }
 
-    public void setVacation(List<Vacations> vacations)
+    public void setVacations(List<Vacations> vacations)
     {
         this.vacations = vacations;
+    }
+
+    public List<Comments> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comments> comments) {
+        this.comments = comments;
+    }
+
+    public List<Todos> getTodos() {
+        return todos;
+    }
+
+    public void setTodos(List<Todos> todos) {
+        this.todos = todos;
     }
 
     // toString

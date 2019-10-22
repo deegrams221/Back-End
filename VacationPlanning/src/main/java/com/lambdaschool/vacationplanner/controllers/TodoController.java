@@ -3,7 +3,9 @@ package com.lambdaschool.vacationplanner.controllers;
 import com.lambdaschool.vacationplanner.logging.Loggable;
 import com.lambdaschool.vacationplanner.models.ErrorDetail;
 import com.lambdaschool.vacationplanner.models.Todos;
+import com.lambdaschool.vacationplanner.models.User;
 import com.lambdaschool.vacationplanner.services.TodoService;
+import com.lambdaschool.vacationplanner.services.UserService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -13,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -33,6 +36,9 @@ public class TodoController
 
     @Autowired
     private TodoService todoService;
+
+    @Autowired
+    private UserService userService;
 
     // Adding custom swagger documentation for find Todos By Id
     @ApiOperation(value = "find Todo By Id",
@@ -97,19 +103,22 @@ public class TodoController
                     message = "Could Not Add Todo",
                     response = ErrorDetail.class)})
 
-    // POST:  /todos
-    @PostMapping(value = "/todos",
+    // POST:  /todos/{vacaid}
+    @PostMapping(value = "/todos/{vacaid}",
             consumes = {"application/json"},
             produces = {"application/json"})
     public ResponseEntity<?> addNewTodo(HttpServletRequest request,
                                         @Valid
-                                        @RequestBody Todos newtodo) throws URISyntaxException
+                                        @RequestBody Todos newtodo,
+                                        Authentication authentication,
+                                        @PathVariable long vacaid) throws URISyntaxException
     {
         // logger
         logger.trace(request.getMethod().toUpperCase()
                 + " " + request.getRequestURI() + " accessed.");
 
-        newtodo = todoService.save(newtodo);
+        User user = userService.findByName(authentication.getName());
+        newtodo = todoService.save(newtodo, user, vacaid);
 
         // set the location header for the newly created resource
         HttpHeaders responseHeaders = new HttpHeaders();

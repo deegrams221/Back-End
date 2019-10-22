@@ -3,6 +3,8 @@ package com.lambdaschool.vacationplanner.services;
 import com.lambdaschool.vacationplanner.exceptions.ResourceNotFoundException;
 import com.lambdaschool.vacationplanner.logging.Loggable;
 import com.lambdaschool.vacationplanner.models.Comments;
+import com.lambdaschool.vacationplanner.models.User;
+import com.lambdaschool.vacationplanner.models.Vacations;
 import com.lambdaschool.vacationplanner.repository.CommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -18,6 +20,9 @@ public class CommentServiceImpl implements CommentService
 {
     @Autowired
     private CommentRepository comrepos;
+
+    @Autowired
+    private VacationService vacationService;
 
     @Override
     public List<Comments> findAll(Pageable pageable)
@@ -48,10 +53,13 @@ public class CommentServiceImpl implements CommentService
 
     @Transactional
     @Override
-    public Comments save(Comments comments)
+    public Comments save(Comments comments, User user, long vacaid)
     {
         Comments newComment = new Comments();
+        Vacations vacations = vacationService.findVacationById(vacaid);
         newComment.setDetail(comments.getDetail());
+        newComment.setUser(comments.getUser());
+        newComment.setVacations(vacations);
 
         return comrepos.save(newComment);
     }

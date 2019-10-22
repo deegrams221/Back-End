@@ -40,6 +40,12 @@ public class Vacations extends Auditable
     @JsonIgnoreProperties("vacations")
     private List<Todos> todos = new ArrayList<>();
 
+    // map one to many - comments
+    @OneToMany(mappedBy = "vacations",
+            cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("vacations")
+    private List<Comments> comments = new ArrayList<>();
+
     // map many to one - user
     @ManyToOne
     @JoinColumn(name = "userid",

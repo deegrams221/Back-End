@@ -3,6 +3,7 @@ package com.lambdaschool.vacationplanner.services;
 import com.lambdaschool.vacationplanner.exceptions.ResourceNotFoundException;
 import com.lambdaschool.vacationplanner.logging.Loggable;
 import com.lambdaschool.vacationplanner.models.Todos;
+import com.lambdaschool.vacationplanner.models.User;
 import com.lambdaschool.vacationplanner.models.Vacations;
 import com.lambdaschool.vacationplanner.repository.TodoRepository;
 import com.lambdaschool.vacationplanner.repository.VacationRepository;
@@ -18,6 +19,9 @@ public class TodoServiceImpl implements TodoService
 
     @Autowired
     private VacationRepository vacarepos;
+
+    @Autowired
+    private VacationService vacationService;
 
     @Override
     public Todos findTodoById(long todoid) throws ResourceNotFoundException
@@ -49,11 +53,14 @@ public class TodoServiceImpl implements TodoService
     }
 
     @Override
-    public Todos save(Todos todos)
+    public Todos save(Todos todos, User user, long vacaid)
     {
         Todos newTodo = new Todos();
+        Vacations vacations = vacationService.findVacationById(vacaid);
         newTodo.setTitle(todos.getTitle());
         newTodo.setDescription(todos.getDescription());
+        newTodo.setUser(todos.getUser());
+        newTodo.setVacations(vacations);
 
         return todorepos.save(newTodo);
     }

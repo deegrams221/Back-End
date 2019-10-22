@@ -2,8 +2,10 @@ package com.lambdaschool.vacationplanner.controllers;
 
 import com.lambdaschool.vacationplanner.models.Comments;
 import com.lambdaschool.vacationplanner.models.ErrorDetail;
+import com.lambdaschool.vacationplanner.models.User;
 import com.lambdaschool.vacationplanner.models.Vacations;
 import com.lambdaschool.vacationplanner.services.CommentService;
+import com.lambdaschool.vacationplanner.services.UserService;
 import io.swagger.annotations.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +15,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -33,6 +36,9 @@ public class CommentController
 
     @Autowired
     private CommentService comService;
+
+    @Autowired
+    private UserService userService;
 
     // Adding custom swagger documentation for find All comments with paging/sorting
     @ApiOperation(value = "List All Comments",
@@ -143,20 +149,23 @@ public class CommentController
                         message = "Could Not Add Comment",
                         response = ErrorDetail.class)})
 
-    // POST:  /comments
-    @PostMapping(value = "/comments",
+    // POST:  /comments/{vacaid}
+    @PostMapping(value = "/comments/{vacaid}",
                 consumes = {"application/json"},
                 produces = {"application/json"})
     public ResponseEntity<?> save(
-                HttpServletRequest request,
-                @Valid
-                @RequestBody Comments newCom) throws URISyntaxException
+                        HttpServletRequest request,
+                        @Valid
+                        @RequestBody Comments newCom,
+                        Authentication authentication,
+                        @PathVariable long vacaid) throws URISyntaxException
     {
         // logger
         logger.trace(request.getMethod().toUpperCase()
                     + " " + request.getRequestURI() + " accessed.");
 
-        newCom = comService.save(newCom);
+        User user = userService.findByName(authentication.getName());
+        newCom = comService.save(newCom, user, vacaid);
 
         // set the location header for the newly created resource
         HttpHeaders responseHeaders = new HttpHeaders();
