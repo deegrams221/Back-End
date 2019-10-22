@@ -44,12 +44,14 @@ public class UserServiceImplUnitTest
     {}
 
     // Tests
+    // UserDetails loadUserByUsername(String username);
     @Test
     public void A_loadUserByUsername()
     {
         assertEquals("admin", userService.loadUserByUsername("admin").getUsername());
     }
 
+    // User findUserById(long id);
     @Test
     public void B_findUserById()
     {
@@ -62,12 +64,14 @@ public class UserServiceImplUnitTest
         assertEquals("admin", userService.findUserById(10).getUsername());
     }
 
+    // List<User> findAll(Pageable pageable);
     @Test
     public void C_findAll()
     {
         assertEquals(6, userService.findAll(Pageable.unpaged()).size());
     }
 
+    // void delete(long id);
     @Test
     public void D_delete()
     {
@@ -82,6 +86,7 @@ public class UserServiceImplUnitTest
         assertEquals(4, userService.findAll(Pageable.unpaged()).size());
     }
 
+    // User findByUsername(String username);
     @Test
     public void E_findByUsername()
     {
@@ -94,12 +99,15 @@ public class UserServiceImplUnitTest
         assertEquals("admin", userService.findByName("turtle").getUsername());
     }
 
+    // List<User> findByNameContaining(String username,
+    //                                    Pageable pageable);
     @Test
     public void AB_findByNameContaining()
     {
         assertEquals(3, userService.findByNameContaining("a", Pageable.unpaged()).size());
     }
 
+    // User save(User user);
     @Test
     public void F_save()
     {
@@ -126,6 +134,9 @@ public class UserServiceImplUnitTest
         System.out.println("*** DATA ***");
     }
 
+    // User update(User user,
+    //                long id,
+    //                boolean isAdmin);
     @Transactional
     @WithUserDetails("Vivi")
     @Test
@@ -188,6 +199,8 @@ public class UserServiceImplUnitTest
         userService.deleteUserRole(50, 2);
     }
 
+    // void deleteUserRole(long userid,
+    //                        long roleid);
     @Test
     public void IB_deleteUserRole()
     {
@@ -206,6 +219,8 @@ public class UserServiceImplUnitTest
         userService.addUserRole(50, 2);
     }
 
+    // void addUserRole(long userid,
+    //                     long roleid);
     @Test
     public void IE_addUserRole()
     {

@@ -7,6 +7,7 @@ import com.lambdaschool.vacationplanner.models.Role;
 import com.lambdaschool.vacationplanner.repository.RoleRepository;
 import com.lambdaschool.vacationplanner.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,7 +25,7 @@ public class RoleServiceImpl implements RoleService
     UserRepository userrepos;
 
     @Override
-    public List<Role> findAll()
+    public List<Role> findAll(Pageable unpaged)
     {
         List<Role> list = new ArrayList<>();
         rolerepos.findAll()
