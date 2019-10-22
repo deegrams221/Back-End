@@ -97,14 +97,14 @@ public class UserServiceImplUnitTest
     @Test
     public void AB_findByNameContaining()
     {
-        assertEquals(2, userService.findByNameContaining("a", Pageable.unpaged()).size());
+        assertEquals(3, userService.findByNameContaining("a", Pageable.unpaged()).size());
     }
 
     @Test
     public void F_save()
     {
         ArrayList<UserRoles> user = new ArrayList<>();
-        User u2 = new User("Vivi", "Boo!", "vivi@lambda.schoola", user);
+        User u2 = new User("Tidus", "mypassword!", "tidus@lambda.schoola", user);
 
         User saveU2 = userService.save(u2);
 
@@ -134,7 +134,7 @@ public class UserServiceImplUnitTest
         ArrayList<UserRoles> user = new ArrayList<>();
         User u2 = new User("Vivi", "password", "vivi@lambda.school", user);
 
-        User updatedu2 = userService.update(u2, 7, false);
+        User updatedu2 = userService.update(u2, 5, false);
 
         System.out.println("*** DATA ***");
         System.out.println(updatedu2);
@@ -152,7 +152,7 @@ public class UserServiceImplUnitTest
         User u2 = new User("Vivi", "password", "vivi@lambda.school", user);
         user.add(new UserRoles(u2, r2));
 
-        User updatedu2 = userService.update(u2, 7, false);
+        User updatedu2 = userService.update(u2, 5, false);
 
         System.out.println("*** DATA ***");
         System.out.println(updatedu2);
@@ -191,7 +191,7 @@ public class UserServiceImplUnitTest
     @Test
     public void IB_deleteUserRole()
     {
-        userService.deleteUserRole(11, 1);
+        userService.deleteUserRole(13, 2);
     }
 
     @Test(expected = ResourceNotFoundException.class)
@@ -209,6 +209,6 @@ public class UserServiceImplUnitTest
     @Test
     public void IE_addUserRole()
     {
-        userService.addUserRole(11, 2);
+        userService.addUserRole(13, 3);
     }
 }
