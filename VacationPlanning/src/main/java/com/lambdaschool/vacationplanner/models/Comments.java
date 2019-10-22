@@ -48,6 +48,10 @@ public class Comments extends Auditable
         this.vacations = vacations;
     }
 
+//    public Comments(String detail, int i, int i1) {
+//        super();
+//    }
+
     // getters/setters
     public long getComid()
     {

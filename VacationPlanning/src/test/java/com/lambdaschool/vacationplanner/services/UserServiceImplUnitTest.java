@@ -94,7 +94,7 @@ public class UserServiceImplUnitTest
     }
 
     @Test (expected = ResourceNotFoundException.class)
-    public void AA_findByUsernameNotfound()
+    public void EA_findByUsernameNotfound()
     {
         assertEquals("admin", userService.findByName("turtle").getUsername());
     }

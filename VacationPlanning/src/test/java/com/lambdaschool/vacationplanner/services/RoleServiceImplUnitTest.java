@@ -1,8 +1,8 @@
 package com.lambdaschool.vacationplanner.services;
 
 import com.lambdaschool.vacationplanner.VacationplannerApplication;
+import com.lambdaschool.vacationplanner.exceptions.ResourceNotFoundException;
 import com.lambdaschool.vacationplanner.models.Role;
-import com.lambdaschool.vacationplanner.models.User;
 import com.lambdaschool.vacationplanner.models.UserRoles;
 import org.junit.After;
 import org.junit.Before;
@@ -14,11 +14,9 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.security.DeclareRoles;
 import java.util.ArrayList;
 
 import static junit.framework.TestCase.assertEquals;
@@ -52,9 +50,16 @@ public class RoleServiceImplUnitTest
 
     // Role findRoleById(long id);
     @Test
-    public void B_findUserById()
+    public void B_findRoleById()
     {
         assertEquals("ADMIN", roleService.findRoleById(1).getName());
+    }
+
+    // ResourceNotFoundException
+    @Test(expected = ResourceNotFoundException.class)
+    public void BA_findRoleByIdNotFound()
+    {
+        assertEquals("ADMIN", roleService.findRoleById(10).getName());
     }
 
     // void delete(long id);
@@ -84,6 +89,13 @@ public class RoleServiceImplUnitTest
     public void E_findByName()
     {
         assertEquals("ADMIN", roleService.findByName("admin").getName());
+    }
+
+    // ResourceNotFoundException
+    @Test (expected = ResourceNotFoundException.class)
+    public void EA_findByNameNotfound()
+    {
+        assertEquals("ADMIN", roleService.findByName("turtle").getName());
     }
 
 
