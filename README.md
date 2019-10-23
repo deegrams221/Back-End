@@ -69,7 +69,7 @@ CREATE NEW USER EXAMPLE:
 
 CURL POST REQUEST:
 
-curl -X POST --user "lambda-client:lambda-secret" -d "grant_type=password&username=admin&password=password" http://bw-vacaplanning.herokuapp.com/login
+curl -X POST --user "lambda-client:lambda-secret" -d "grant_type=password&username=admin&password=password" http://bw-vacaplanning.herokuapp.com/login -v
 
 {
 
@@ -80,6 +80,10 @@ curl -X POST --user "lambda-client:lambda-secret" -d "grant_type=password&userna
    "expires_in"   : 2992,
 
    "scope"        : "read write trust"
+   
+   "Content-Type" : "application/x-www-form-urlencoded"
+   
+   "Authorization" : "Basic bGFtYmRhLWNsaWVudDpsYW1iZGEtc2VjcmV0"
 
 }
 
