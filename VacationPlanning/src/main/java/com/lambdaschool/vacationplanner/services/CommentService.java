@@ -14,5 +14,5 @@ public interface CommentService
 
     void deleteComment(long comid);
 
-    Comments save(Comments comments, User user, long vacaid);
+    Comments save(Comments comments);
 }

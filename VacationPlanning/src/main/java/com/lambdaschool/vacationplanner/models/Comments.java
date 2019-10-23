@@ -29,11 +29,15 @@ public class Comments extends Auditable
 //    private Vacations vacations = new Vacations();
 
     // map many to one - user
-    @ManyToOne
-    @JoinColumn(name = "userid",
-            nullable = false)
-    @JsonIgnoreProperties("user")
-    private User user = new User();
+//    @ManyToOne
+//    @JoinColumn(name = "userid",
+//            nullable = false)
+//    @JsonIgnoreProperties("user")
+//    private User user = new User();
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "userid")
+    @JsonIgnoreProperties({"comments", "hibernateLazyInitializer"})
+    private User user;
 
     // default constructor
     public Comments()
@@ -67,21 +71,13 @@ public class Comments extends Auditable
         this.detail = detail;
     }
 
-//    public Vacations getVacations() {
-//        return vacations;
+//    public User getUser() {
+//        return user;
 //    }
 //
-//    public void setVacations(Vacations vacations) {
-//        this.vacations = vacations;
+//    public void setUser(User user) {
+//        this.user = user;
 //    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 
     // toString
     @Override

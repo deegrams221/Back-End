@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -144,46 +143,6 @@ public class VacationController
     }
 
     // Adding custom swagger documentation for adding a new vacation
-//    @ApiOperation(value = "Add a new vacation",
-//            response = void.class)
-//    @ApiResponses(value = {
-//            @ApiResponse(code = 200,
-//                    message = "Vacation Created",
-//                    response = void.class),
-//            @ApiResponse(code = 400,
-//                    message = "Could Not Create Vacation",
-//                    response = ErrorDetail.class)})
-
-    // POST:  /vacations/vacations
-    //    {
-    //        "place": "Hawaii",
-    //    }
-    //@PreAuthorize("hasAuthority('ROLE_USER')")
-//    @PostMapping(value = "/vacations",
-//            consumes = {"application/json"})
-//    public ResponseEntity<?> addNewVaca(HttpServletRequest request,
-//                                        @Valid
-//                                        @RequestBody Vacations newvaca)
-//    {
-//        // logger
-//        logger.trace(request.getMethod().toUpperCase()
-//                + " " + request.getRequestURI() + " accessed.");
-//
-//       // newvaca = vacaService.save(newvaca);
-//        vacaService.save(newvaca);
-//
-//        // set the location header for the newly created resource
-////        HttpHeaders responseHeaders = new HttpHeaders();
-////        URI newVacationURI = ServletUriComponentsBuilder.fromUriString(request.getServerName()
-////                + ":" + request.getLocalPort() + "/vacations/vacations/{vacaid}")
-////                .buildAndExpand(newvaca.getVacaid()).toUri();
-////        responseHeaders.setLocation(newVacationURI);
-//
-////        return new ResponseEntity<>(responseHeaders, HttpStatus.CREATED);
-//        return new ResponseEntity<>(HttpStatus.CREATED);
-
-
-
     @ApiOperation(value = "Creates a new vacation and assigns it to logged in user",
             response = void.class)
     @ApiResponses(value = {

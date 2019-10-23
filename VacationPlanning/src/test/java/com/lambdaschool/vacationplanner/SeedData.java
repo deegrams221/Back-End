@@ -100,10 +100,10 @@ public class SeedData implements CommandLineRunner
         userrepos.save(u6);
 
         // comments
-//        u3.getComments().add(new Comments("Lets go fishing!", u3, u3.getVacations().get(0)));
-//        u2.getComments().add(new Comments("I think we should go surfing!", u2, u2.getVacations().get(0)));
-//        u3.getComments().add(new Comments("Maybe we can go fishing and go surfing?", u3, u3.getVacations().get(0)));
-//        u2.getComments().add(new Comments("That sounds fun! Great idea!", u2, u2.getVacations().get(0)));
+        u3.getComments().add(new Comments("Lets go fishing!"));
+        u2.getComments().add(new Comments("I think we should go surfing!"));
+        u3.getComments().add(new Comments("Maybe we can go fishing and go surfing?"));
+        u2.getComments().add(new Comments("That sounds fun! Great idea!"));
 
         // todos (activities)
 //        u3.getTodos().add(new Todos("Fishing", "We'll need to get some gear!", u3.getVacations().get(0), u3));

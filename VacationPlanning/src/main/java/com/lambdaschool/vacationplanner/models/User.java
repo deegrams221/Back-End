@@ -53,13 +53,15 @@ public class User extends Auditable
 
     // map one to many - comments
     @OneToMany(mappedBy = "user",
-            cascade = CascadeType.ALL)
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
     @JsonIgnoreProperties("user")
     private List<Comments> comments = new ArrayList<>();
 
     // map one to many - todos
     @OneToMany(mappedBy = "user",
-            cascade = CascadeType.ALL)
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
     @JsonIgnoreProperties("user")
     private List<Todos> todos = new ArrayList<>();
 

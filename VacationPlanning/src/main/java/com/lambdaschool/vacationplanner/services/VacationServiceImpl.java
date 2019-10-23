@@ -92,24 +92,6 @@ public class VacationServiceImpl implements VacationService
             currentVacation.setPlace(vacations.getPlace());
         }
 
-//        if (vacations.getComments().size() > 0)
-//        {
-//            // adds new comments to list
-//            for (Comments c:vacations.getComments())
-//            {
-//                currentVacation.getComments().add(new Comments(c.getDetail()));
-//            }
-//        }
-//
-//        if (vacations.getTodos().size() > 0)
-//        {
-//            // adds new todos to list
-//            for (Todos t:vacations.getTodos())
-//            {
-//                currentVacation.getTodos().add(new Todos(t.getTitle(), t.getDescription()));
-//            }
-//        }
-
         logger.info("Updating a Vacation");
         return vacarepos.save(currentVacation);
     }

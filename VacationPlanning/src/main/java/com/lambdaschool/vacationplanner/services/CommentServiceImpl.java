@@ -6,8 +6,11 @@ import com.lambdaschool.vacationplanner.models.Comments;
 import com.lambdaschool.vacationplanner.models.User;
 import com.lambdaschool.vacationplanner.models.Vacations;
 import com.lambdaschool.vacationplanner.repository.CommentRepository;
+import com.lambdaschool.vacationplanner.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,6 +26,9 @@ public class CommentServiceImpl implements CommentService
 
     @Autowired
     private VacationService vacationService;
+
+    @Autowired
+    private UserRepository userrepos;
 
     @Override
     public List<Comments> findAll(Pageable pageable)
@@ -51,17 +57,34 @@ public class CommentServiceImpl implements CommentService
         comrepos.deleteById(comid);
     }
 
+//    @Transactional
+//    @Override
+//    public Comments save(Comments comments, User user, long vacaid)
+//    {
+//        Comments newComment = new Comments();
+//        Vacations vacations = vacationService.findVacationById(vacaid);
+//        newComment.setDetail(comments.getDetail());
+//        newComment.setUser(comments.getUser());
+////        newComment.setVacations(vacations);
+//
+//        return comrepos.save(newComment);
+//    }
+
     @Transactional
     @Override
-    public Comments save(Comments comments, User user, long vacaid)
+    public Comments save(Comments comments)
     {
-        Comments newComment = new Comments();
-        Vacations vacations = vacationService.findVacationById(vacaid);
-        newComment.setDetail(comments.getDetail());
-        newComment.setUser(comments.getUser());
-//        newComment.setVacations(vacations);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User currentUser = userrepos.findByUsername(authentication.getName());
 
-        return comrepos.save(newComment);
+        Comments newCom = new Comments();
+        newCom.setDetail(comments.getDetail());
+
+        List<Comments> userCom = currentUser.getComments();
+        userCom.add(newCom);
+        currentUser.setComments(userCom);
+
+        return comrepos.save(newCom);
     }
 
 }

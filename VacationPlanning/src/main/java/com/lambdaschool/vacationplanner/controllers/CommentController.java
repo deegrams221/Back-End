@@ -2,7 +2,6 @@ package com.lambdaschool.vacationplanner.controllers;
 
 import com.lambdaschool.vacationplanner.models.Comments;
 import com.lambdaschool.vacationplanner.models.ErrorDetail;
-import com.lambdaschool.vacationplanner.models.User;
 import com.lambdaschool.vacationplanner.models.Vacations;
 import com.lambdaschool.vacationplanner.services.CommentService;
 import com.lambdaschool.vacationplanner.services.UserService;
@@ -15,7 +14,6 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -99,7 +97,8 @@ public class CommentController
     @GetMapping(value = "/comments/{comid}",
             produces = {"application/json"})
     public ResponseEntity<?> findCommentById(HttpServletRequest request,
-                                             @PathVariable Long comid) {
+                                             @PathVariable Long comid)
+    {
         // logger
         logger.info(request.getMethod().toUpperCase()
                 + " " + request.getRequestURI() + " accessed.");
@@ -128,7 +127,8 @@ public class CommentController
                     required = true,
                     example = "1")
             @PathVariable long comid,
-            HttpServletRequest request) {
+            HttpServletRequest request)
+    {
         // logging
         logger.info(request.getMethod().toUpperCase()
                 + " " + request.getRequestURI() + " accessed.");
@@ -149,34 +149,26 @@ public class CommentController
                         message = "Could Not Add Comment",
                         response = ErrorDetail.class)})
 
-    // POST:  /comments/{vacaid}
-    @PostMapping(value = "/comments/{vacaid}",
+        // POST:  /comments/newcom
+        //    {
+        //        "detail": "Let's go fishing!"
+        //    }
+        @PostMapping(value = "/newcom",
                 consumes = {"application/json"},
                 produces = {"application/json"})
-    public ResponseEntity<?> save(
-                        HttpServletRequest request,
-                        @Valid
-                        @RequestBody Comments newCom,
-                        Authentication authentication,
-                        @PathVariable long vacaid) throws URISyntaxException
-    {
-        // logger
-        logger.trace(request.getMethod().toUpperCase()
-                    + " " + request.getRequestURI() + " accessed.");
-
-        User user = userService.findByName(authentication.getName());
-        newCom = comService.save(newCom, user, vacaid);
-
-        // set the location header for the newly created resource
-        HttpHeaders responseHeaders = new HttpHeaders();
-        URI newUserURI = ServletUriComponentsBuilder.fromCurrentRequest()
+        public ResponseEntity<?> createComment(@Valid
+                                                   @RequestBody Comments newcom) throws URISyntaxException
+        {
+            newcom =  comService.save(newcom);
+            // set the location header for the newly created resource
+            HttpHeaders responseHeaders = new HttpHeaders();
+            URI newComURI = ServletUriComponentsBuilder
+                    .fromCurrentRequest()
                     .path("/{comid}")
-                    .buildAndExpand(newCom.getComid())
+                    .buildAndExpand(newcom.getComid())
                     .toUri();
-        responseHeaders.setLocation(newUserURI);
-
-        return new ResponseEntity<>(null,
-                                            responseHeaders,
-                                            HttpStatus.CREATED);
+            responseHeaders.setLocation(newComURI);
+            return new ResponseEntity<>(null, responseHeaders, HttpStatus.CREATED);
+        }
     }
-}
+
