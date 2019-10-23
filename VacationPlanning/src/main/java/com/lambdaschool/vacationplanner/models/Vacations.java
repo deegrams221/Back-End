@@ -18,29 +18,28 @@ public class Vacations extends Auditable
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long vacaid;
 
-    private String vacation;
-
     @Column(nullable = false)
     private String place;
 
     // map one to many - todos
-    @OneToMany(mappedBy = "vacations",
-            cascade = CascadeType.ALL)
-    @JsonIgnoreProperties("vacations")
-    private List<Todos> todos = new ArrayList<>();
+//    @OneToMany(mappedBy = "vacations",
+//            cascade = CascadeType.ALL)
+//    @JsonIgnoreProperties("vacations")
+//    private List<Todos> todos = new ArrayList<>();
 
     // map one to many - comments
-    @OneToMany(mappedBy = "vacations",
-            cascade = CascadeType.ALL)
-    @JsonIgnoreProperties("vacations")
-    private List<Comments> comments = new ArrayList<>();
+//    @OneToMany(mappedBy = "vacations",
+//            cascade = CascadeType.ALL)
+//    @JsonIgnoreProperties("vacations")
+//    private List<Comments> comments = new ArrayList<>();
 
     // map many to one - user
-    @ManyToOne
-    @JoinColumn(name = "userid",
-            nullable = false)
-    @JsonIgnoreProperties({"vacations"})
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "userid")
+    @JsonIgnoreProperties({"vacation", "hibernateLazyInitializer"})
     private User user;
+
+
 
     // default constructor
     public Vacations()
@@ -52,12 +51,6 @@ public class Vacations extends Auditable
     {
         this.place = place;
     }
-    public Vacations(String place, User user)
-    {
-        this.place = place;
-        this.user = user;
-    }
-
 
     // getters/setters
     public long getVacaid()
@@ -68,16 +61,6 @@ public class Vacations extends Auditable
     public void setVacaid(long vacaid)
     {
         this.vacaid = vacaid;
-    }
-
-    public String getVacation()
-    {
-        return vacation;
-    }
-
-    public void setVacation(String vacation)
-    {
-        this.vacation = vacation;
     }
 
     public String getPlace()
@@ -91,6 +74,7 @@ public class Vacations extends Auditable
     }
 
     // toString
+
     @Override
     public String toString() {
         return "Vacations{" +

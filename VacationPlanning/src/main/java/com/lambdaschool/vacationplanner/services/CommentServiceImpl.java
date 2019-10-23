@@ -59,7 +59,7 @@ public class CommentServiceImpl implements CommentService
         Vacations vacations = vacationService.findVacationById(vacaid);
         newComment.setDetail(comments.getDetail());
         newComment.setUser(comments.getUser());
-        newComment.setVacations(vacations);
+//        newComment.setVacations(vacations);
 
         return comrepos.save(newComment);
     }

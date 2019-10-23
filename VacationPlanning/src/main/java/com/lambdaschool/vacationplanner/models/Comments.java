@@ -22,11 +22,11 @@ public class Comments extends Auditable
     private String detail;
 
     // map many to one - vacation
-    @ManyToOne
-    @JoinColumn(name = "vacaid",
-            nullable = false)
-    @JsonIgnoreProperties("comments")
-    private Vacations vacations = new Vacations();
+//    @ManyToOne
+//    @JoinColumn(name = "vacaid",
+//            nullable = false)
+//    @JsonIgnoreProperties("comments")
+//    private Vacations vacations = new Vacations();
 
     // map many to one - user
     @ManyToOne
@@ -41,16 +41,10 @@ public class Comments extends Auditable
     }
 
     // constructor
-    public Comments(String detail, User user, Vacations vacations)
+    public Comments(String detail)
     {
         this.detail = detail;
-        this.user = user;
-        this.vacations = vacations;
     }
-
-//    public Comments(String detail, int i, int i1) {
-//        super();
-//    }
 
     // getters/setters
     public long getComid()
@@ -73,13 +67,13 @@ public class Comments extends Auditable
         this.detail = detail;
     }
 
-    public Vacations getVacations() {
-        return vacations;
-    }
-
-    public void setVacations(Vacations vacations) {
-        this.vacations = vacations;
-    }
+//    public Vacations getVacations() {
+//        return vacations;
+//    }
+//
+//    public void setVacations(Vacations vacations) {
+//        this.vacations = vacations;
+//    }
 
     public User getUser() {
         return user;

@@ -27,8 +27,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/comments")
-// http://localhost:2019/comment
-// http://bw-vacaplanning.herokuapp.com/comment
+// http://localhost:2019/comments
+// http://bw-vacaplanning.herokuapp.com/comments
 public class CommentController
 {
     // logging

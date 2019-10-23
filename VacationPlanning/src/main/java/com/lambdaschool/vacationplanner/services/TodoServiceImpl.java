@@ -10,6 +10,9 @@ import com.lambdaschool.vacationplanner.repository.VacationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Loggable
 @Service(value = "todoService")
 public class TodoServiceImpl implements TodoService
@@ -20,8 +23,15 @@ public class TodoServiceImpl implements TodoService
     @Autowired
     private VacationRepository vacarepos;
 
-    @Autowired
-    private VacationService vacationService;
+    @Override
+    public List<Todos> findAllTodos()
+    {
+        List<Todos> rtnList = new ArrayList<>();
+
+        todorepos.findAll().iterator().forEachRemaining(rtnList::add);
+
+        return rtnList;
+    }
 
     @Override
     public Todos findTodoById(long todoid) throws ResourceNotFoundException
@@ -53,14 +63,11 @@ public class TodoServiceImpl implements TodoService
     }
 
     @Override
-    public Todos save(Todos todos, User user, long vacaid)
+    public Todos save(Todos todos)
     {
         Todos newTodo = new Todos();
-        Vacations vacations = vacationService.findVacationById(vacaid);
         newTodo.setTitle(todos.getTitle());
         newTodo.setDescription(todos.getDescription());
-        newTodo.setUser(todos.getUser());
-        newTodo.setVacations(vacations);
 
         return todorepos.save(newTodo);
     }

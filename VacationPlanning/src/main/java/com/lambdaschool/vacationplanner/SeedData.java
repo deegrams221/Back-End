@@ -65,12 +65,13 @@ public class SeedData implements CommandLineRunner
         User u6 = new User("Sephiroth", "password", "sephiroth@lambda.school",user);
 
         // vacations
-        u2.getVacations().add(new Vacations("Hawaii", u2));
-        u2.getVacations().add(new Vacations("Spain", u2));
-        u2.getVacations().add(new Vacations("New Zealand", u2));
-        u3.getVacations().add(new Vacations("Rome", u3));
-        u4.getVacations().add(new Vacations("Disney World", u4));
-        u5.getVacations().add(new Vacations("Disneyland", u5));
+
+        u2.getVacations().add(new Vacations("Hawaii"));
+        u2.getVacations().add(new Vacations("Spain"));
+        u2.getVacations().add(new Vacations("New Zealand"));
+        u3.getVacations().add(new Vacations("Rome"));
+        u4.getVacations().add(new Vacations("Disney World"));
+        u5.getVacations().add(new Vacations("Disneyland"));
 
         userrepos.save(u1);
         userrepos.save(u2);
@@ -80,13 +81,13 @@ public class SeedData implements CommandLineRunner
         userrepos.save(u6);
 
         // comments
-        u3.getComments().add(new Comments("Lets go fishing!", u3, u3.getVacations().get(0)));
-        u2.getComments().add(new Comments("I think we should go surfing!", u2, u2.getVacations().get(0)));
-        u3.getComments().add(new Comments("Maybe we can go fishing and go surfing?", u3, u3.getVacations().get(0)));
-        u2.getComments().add(new Comments("That sounds fun! Great idea!", u2, u2.getVacations().get(0)));
+//        u3.getComments().add(new Comments("Lets go fishing!", u3, u3.getVacations().get(0)));
+//        u2.getComments().add(new Comments("I think we should go surfing!", u2, u2.getVacations().get(0)));
+//        u3.getComments().add(new Comments("Maybe we can go fishing and go surfing?", u3, u3.getVacations().get(0)));
+//        u2.getComments().add(new Comments("That sounds fun! Great idea!", u2, u2.getVacations().get(0)));
 
         // todos (activities)
-        u3.getTodos().add(new Todos("Fishing", "We'll need to get some gear!", u3.getVacations().get(0), u3));
-        u2.getTodos().add(new Todos("Surfing", "We'll need just need to rent some boards.", u2.getVacations().get(0), u2));
+//        u3.getTodos().add(new Todos("Fishing", "We'll need to get some gear!", u3.getVacations().get(0), u3));
+//        u2.getTodos().add(new Todos("Surfing", "We'll need just need to rent some boards.", u2.getVacations().get(0), u2));
     }
 }

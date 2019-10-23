@@ -2,7 +2,6 @@ package com.lambdaschool.vacationplanner.controllers;
 
 import com.lambdaschool.vacationplanner.logging.Loggable;
 import com.lambdaschool.vacationplanner.models.ErrorDetail;
-import com.lambdaschool.vacationplanner.models.User;
 import com.lambdaschool.vacationplanner.models.Vacations;
 import com.lambdaschool.vacationplanner.services.VacationService;
 import io.swagger.annotations.ApiOperation;
@@ -15,10 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import com.lambdaschool.vacationplanner.services.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -38,8 +36,30 @@ public class VacationController
     @Autowired
     private VacationService vacaService;
 
-    @Autowired
-    private UserService userService;
+
+    // Adding custom swagger documentation for find All Vacations
+    @ApiOperation(value = "find all Vacations",
+            response = Vacations.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 201,
+                    message = "Found Vacations",
+                    response = void.class),
+            @ApiResponse(code = 500,
+                    message = "Vacations Not Found",
+                    response = ErrorDetail.class)})
+
+    // GET:  /vacations/vacations
+    @GetMapping(value = "/vacations", produces = {"application/json"})
+    public ResponseEntity<?> findAllVacas(HttpServletRequest request)
+    {
+        // logger
+        logger.info(request.getMethod().toUpperCase()
+                + " " + request.getRequestURI() + " accessed.");
+
+        return new ResponseEntity<>(
+                vacaService.findAllVacas(), HttpStatus.OK);
+    }
+
 
     // Adding custom swagger documentation for find Vacation By Id
     @ApiOperation(value = "find Vacation By Id",
@@ -52,11 +72,11 @@ public class VacationController
                     message = "Vacation Not Found",
                     response = ErrorDetail.class)})
 
-    // GET: /vacations/{vacaid}
+    // GET: /vacations/vacations/{vacaid}
     @GetMapping(value = "/vacations/{vacaid}",
             produces = {"application/json"})
     public ResponseEntity<?> findVacationById(HttpServletRequest request,
-                                              @PathVariable Long vacaid)
+                                              @PathVariable long vacaid)
     {
         // logger
         logger.info(request.getMethod().toUpperCase()
@@ -78,7 +98,7 @@ public class VacationController
                     message = "Vacation Not Found",
                     response = ErrorDetail.class)})
 
-    // GET: /vacations/{place}
+    // GET: /vacations/vacations/{place}
     @GetMapping(value = "/vacations/{place}",
             produces = {"application/json"})
     public ResponseEntity<?> findByPlace(HttpServletRequest request,
@@ -104,7 +124,7 @@ public class VacationController
                     message = "Could Not Delete Vacation",
                     response = ErrorDetail.class)})
 
-    // DELETE /vacations/{vacaid}
+    // DELETE /vacations/vacations/{vacaid}
     @DeleteMapping("/vacations/{vacaid}")
     public ResponseEntity<?> delete(
             // Adding custom swagger params
@@ -124,42 +144,75 @@ public class VacationController
     }
 
     // Adding custom swagger documentation for adding a new vacation
-    @ApiOperation(value = "Add a new vacation",
+//    @ApiOperation(value = "Add a new vacation",
+//            response = void.class)
+//    @ApiResponses(value = {
+//            @ApiResponse(code = 200,
+//                    message = "Vacation Created",
+//                    response = void.class),
+//            @ApiResponse(code = 400,
+//                    message = "Could Not Create Vacation",
+//                    response = ErrorDetail.class)})
+
+    // POST:  /vacations/vacations
+    //    {
+    //        "place": "Hawaii",
+    //    }
+    //@PreAuthorize("hasAuthority('ROLE_USER')")
+//    @PostMapping(value = "/vacations",
+//            consumes = {"application/json"})
+//    public ResponseEntity<?> addNewVaca(HttpServletRequest request,
+//                                        @Valid
+//                                        @RequestBody Vacations newvaca)
+//    {
+//        // logger
+//        logger.trace(request.getMethod().toUpperCase()
+//                + " " + request.getRequestURI() + " accessed.");
+//
+//       // newvaca = vacaService.save(newvaca);
+//        vacaService.save(newvaca);
+//
+//        // set the location header for the newly created resource
+////        HttpHeaders responseHeaders = new HttpHeaders();
+////        URI newVacationURI = ServletUriComponentsBuilder.fromUriString(request.getServerName()
+////                + ":" + request.getLocalPort() + "/vacations/vacations/{vacaid}")
+////                .buildAndExpand(newvaca.getVacaid()).toUri();
+////        responseHeaders.setLocation(newVacationURI);
+//
+////        return new ResponseEntity<>(responseHeaders, HttpStatus.CREATED);
+//        return new ResponseEntity<>(HttpStatus.CREATED);
+
+
+
+    @ApiOperation(value = "Creates a new vacation and assigns it to logged in user",
             response = void.class)
     @ApiResponses(value = {
-            @ApiResponse(code = 200,
+            @ApiResponse(code = 201,
                     message = "Vacation Created",
                     response = void.class),
-            @ApiResponse(code = 400,
+            @ApiResponse(code = 500,
                     message = "Could Not Create Vacation",
                     response = ErrorDetail.class)})
 
-    // POST:  /vacations
-    @PostMapping(value = "/vacations",
+    // POST:  /vacations/newvaca
+    //    {
+    //        "place": "Hawaii"
+    //    }
+    @PostMapping(value = "/newvaca",
             consumes = {"application/json"},
             produces = {"application/json"})
-    public ResponseEntity<?> addNewVaca(HttpServletRequest request,
-                                        @Valid
-                                        @RequestBody Vacations newvaca,
-                                        Authentication authentication) throws URISyntaxException
+    public ResponseEntity<?> createVacation(@Valid
+                                            @RequestBody Vacations newvaca) throws URISyntaxException
     {
-        // logger
-        logger.trace(request.getMethod().toUpperCase()
-                + " " + request.getRequestURI() + " accessed.");
-
-        User user = userService.findByName(authentication.getName());
-        newvaca = vacaService.save(newvaca, user);
-
+        newvaca =  vacaService.save(newvaca);
         // set the location header for the newly created resource
         HttpHeaders responseHeaders = new HttpHeaders();
-        URI newUserURI = ServletUriComponentsBuilder.fromCurrentRequest()
+        URI newVacaURI = ServletUriComponentsBuilder
+                .fromCurrentRequest()
                 .path("/{vacaid}")
                 .buildAndExpand(newvaca.getVacaid())
                 .toUri();
-        responseHeaders.setLocation(newUserURI);
-
-        return new ResponseEntity<>(null,
-                responseHeaders,
-                HttpStatus.CREATED);
+        responseHeaders.setLocation(newVacaURI);
+        return new ResponseEntity<>(null, responseHeaders, HttpStatus.CREATED);
     }
 }

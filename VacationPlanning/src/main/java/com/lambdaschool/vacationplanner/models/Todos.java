@@ -25,11 +25,11 @@ public class Todos extends Auditable
     private String description;
 
     // many to one - vacations
-    @ManyToOne
-    @JoinColumn(name = "vacaid",
-            nullable = false)
-    @JsonIgnoreProperties("todos")
-    private Vacations vacations = new Vacations();
+//    @ManyToOne
+//    @JoinColumn(name = "vacaid",
+//            nullable = false)
+//    @JsonIgnoreProperties("todos")
+//    private Vacations vacations = new Vacations();
 
     // map many to one - user
     @ManyToOne
@@ -46,13 +46,13 @@ public class Todos extends Auditable
     // constructor
 
 
-    public Todos(String title, String description, Vacations vacations, User user)
+    public Todos(String title, String description)
     {
         this.title = title;
         this.description = description;
-        this.vacations = vacations;
-        this.user = user;
+
     }
+
 
     // getters/setters
     public long getTodoid()
@@ -97,13 +97,13 @@ public class Todos extends Auditable
         this.todos = todos;
     }
 
-    public Vacations getVacations() {
-        return vacations;
-    }
-
-    public void setVacations(Vacations vacations) {
-        this.vacations = vacations;
-    }
+//    public Vacations getVacations() {
+//        return vacations;
+//    }
+//
+//    public void setVacations(Vacations vacations) {
+//        this.vacations = vacations;
+//    }
 
     public User getUser() {
         return user;

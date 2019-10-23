@@ -118,7 +118,7 @@ public class TodoController
                 + " " + request.getRequestURI() + " accessed.");
 
         User user = userService.findByName(authentication.getName());
-        newtodo = todoService.save(newtodo, user, vacaid);
+        newtodo = todoService.save(newtodo);
 
         // set the location header for the newly created resource
         HttpHeaders responseHeaders = new HttpHeaders();

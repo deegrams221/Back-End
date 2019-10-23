@@ -84,26 +84,26 @@ public class TodoServiceImplUnitTest
     }
 
     // Todos save(Todos todos, User user, long vacaid);
-    @Test
-    public void F_save()
-    {
-    ArrayList<Todos> todos = new ArrayList<>();
-    Todos t3 = new Todos("Run", "Lets go running!", vacaService.findVacationById(6), userService.findUserById(15));
-
-    Todos saveT3 = todoService.save(t3, userService.findUserById(15), 6);
-
-        System.out.println("*** DATA ***");
-        System.out.println(saveT3);
-        System.out.println("*** DATA ***");
-    }
+//    @Test
+//    public void F_save()
+//    {
+//    ArrayList<Todos> todos = new ArrayList<>();
+//    Todos t3 = new Todos("Run", "Lets go running!", vacaService.findVacationById(6), userService.findUserById(15));
+//
+//    Todos saveT3 = todoService.save(t3, userService.findUserById(15), 6);
+//
+//        System.out.println("*** DATA ***");
+//        System.out.println(saveT3);
+//        System.out.println("*** DATA ***");
+//    }
 
     // Todos update(Todos todos, long todoid);
-    @Test
-    public void update()
-    {
-        ArrayList<Todos> todos = new ArrayList<>();
-        Todos t2 = new Todos("Fishing", "Blah blah blah", vacaService.findVacationById(10), userService.findUserById(9));
-    }
+//    @Test
+//    public void update()
+//    {
+//        ArrayList<Todos> todos = new ArrayList<>();
+//        Todos t2 = new Todos("Fishing", "Blah blah blah", vacaService.findVacationById(10), userService.findUserById(9));
+//    }
 
     // void assignTodoToVacation(long todoid, long vacaid);
 

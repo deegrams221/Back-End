@@ -70,16 +70,16 @@ public class CommentServiceImplUnitTest
     }
 
     // Comments save(Comments comments, User user, long vacaid);
-    @Test
-    public void F_save()
-    {
-        // ArrayList<Comments> comments = new ArrayList<>();
-        Comments c1 = new Comments("Fishing is fun!", userService.findUserById(15), vacaService.findVacationById(6));
-
-        Comments saveC1 = comService.save(c1, userService.findUserById(15), 6);
-
-        System.out.println("*** DATA ***");
-        System.out.println(saveC1);
-        System.out.println("*** DATA ***");
-    }
+//    @Test
+//    public void F_save()
+//    {
+//        // ArrayList<Comments> comments = new ArrayList<>();
+//        Comments c1 = new Comments("Fishing is fun!", userService.findUserById(15), vacaService.findVacationById(6));
+//
+//        Comments saveC1 = comService.save(c1, userService.findUserById(15), 6);
+//
+//        System.out.println("*** DATA ***");
+//        System.out.println(saveC1);
+//        System.out.println("*** DATA ***");
+//    }
 }
