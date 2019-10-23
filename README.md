@@ -67,3 +67,14 @@ CREATE NEW USER EXAMPLE:
    
 }
 
+CURL POST REQUEST:
+
+curl -X POST --user "lambda-client:lambda-secret" -d "grant_type=password&username=admin&password=password" http://bw-vacaplanning.herokuapp.com/login
+
+{
+
+"access_token" : "b4a3579b-961b-4ff2-b85b-1e947fe8ef64"
+
+"token_type"   : "bearer","expires_in":2992,"scope":"read write trust"
+}
+
