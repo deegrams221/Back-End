@@ -1,0 +1,5 @@
+
+# Curl Documentation
+
+## Login
+curl -X POST --user "lambda-client:lambda-secret" -d "grant_type=password&username=admin&password=password" http://bw-vacaplanning.herokuapp.com/login

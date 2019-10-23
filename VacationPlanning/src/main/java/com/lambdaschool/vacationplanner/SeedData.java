@@ -1,12 +1,12 @@
 package com.lambdaschool.vacationplanner;
 
 import com.lambdaschool.vacationplanner.models.*;
-import com.lambdaschool.vacationplanner.repository.*;
+import com.lambdaschool.vacationplanner.repository.RoleRepository;
+import com.lambdaschool.vacationplanner.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-import com.lambdaschool.vacationplanner.services.CommentService;
 
 import java.util.ArrayList;
 
@@ -20,31 +20,11 @@ public class SeedData implements CommandLineRunner
     @Autowired
     private UserRepository userrepos;
 
-    @Autowired
-    private TodoRepository todorepos;
-
-    @Autowired
-    private VacationRepository vacarepos;
-
-    @Autowired
-    private CommentRepository comrepos;
-
-    @Autowired
-    private CommentService comService;
-
     public SeedData(RoleRepository rolerepos,
-                    UserRepository userrepos,
-                    TodoRepository todorepos,
-                    VacationRepository vacarepos,
-                    CommentRepository comrepos,
-                    CommentService comService)
+                    UserRepository userrepos)
     {
         this.rolerepos = rolerepos;
         this.userrepos = userrepos;
-        this.todorepos = todorepos;
-        this.vacarepos = vacarepos;
-        this.comrepos = comrepos;
-        this.comService = comService;
     }
 
     @Override
@@ -69,7 +49,7 @@ public class SeedData implements CommandLineRunner
         rolerepos.save(r3);
 
         // users
-        User u1 = new User("Admin", "password", "admin@lambda.school", admin);
+        User u1 = new User("admin", "password", "admin@lambda.school", admin);
         User u2 = new User("Vivi", "password", "vivi@lambda.school", user);
         user = new ArrayList<>();
         user.add(new UserRoles(new User(), r2));
