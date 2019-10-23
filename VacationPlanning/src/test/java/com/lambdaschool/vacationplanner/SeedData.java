@@ -85,12 +85,12 @@ public class SeedData implements CommandLineRunner
         User u6 = new User("Sephiroth", "password", "sephiroth@lambda.school",user);
 
         // vacations
-        u2.getVacations().add(new Vacations("Hawaii", "2019-10-19", u2));
-        u2.getVacations().add(new Vacations("Spain", "2019-10-19", u2));
-        u2.getVacations().add(new Vacations("New Zealand", "2019-10-19", u2));
-        u3.getVacations().add(new Vacations("Rome", "2019-10-20", u3));
-        u4.getVacations().add(new Vacations("Disney World", "2019-10-20", u4));
-        u5.getVacations().add(new Vacations("Disneyland", "2019-10-20", u5));
+        u2.getVacations().add(new Vacations("Hawaii", u2));
+        u2.getVacations().add(new Vacations("Spain", u2));
+        u2.getVacations().add(new Vacations("New Zealand", u2));
+        u3.getVacations().add(new Vacations("Rome", u3));
+        u4.getVacations().add(new Vacations("Disney World", u4));
+        u5.getVacations().add(new Vacations("Disneyland", u5));
 
         userrepos.save(u1);
         userrepos.save(u2);

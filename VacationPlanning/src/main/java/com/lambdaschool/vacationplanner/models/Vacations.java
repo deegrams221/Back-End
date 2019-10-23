@@ -4,9 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.lambdaschool.vacationplanner.logging.Loggable;
 
 import javax.persistence.*;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Loggable
@@ -24,15 +22,6 @@ public class Vacations extends Auditable
 
     @Column(nullable = false)
     private String place;
-
-    @Transient
-    private String pattern = "yyyy-MM-dd";
-
-    @Transient
-    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-
-    @Column
-    private String date = simpleDateFormat.format(new Date());
 
     // map one to many - todos
     @OneToMany(mappedBy = "vacations",
@@ -59,17 +48,16 @@ public class Vacations extends Auditable
     }
 
     // constructors
-    public Vacations(String place, String date)
+    public Vacations(String place)
     {
         this.place = place;
-        this.date = date;
     }
-    public Vacations(String place, String date, User user)
+    public Vacations(String place, User user)
     {
         this.place = place;
-        this.date = date;
         this.user = user;
     }
+
 
     // getters/setters
     public long getVacaid()
@@ -102,23 +90,12 @@ public class Vacations extends Auditable
         this.place = place;
     }
 
-    public String getDate()
-    {
-        return date;
-    }
-
-    public void setDate(String date)
-    {
-        this.date = date;
-    }
-
     // toString
     @Override
     public String toString() {
         return "Vacations{" +
                 "vacaid=" + vacaid +
                 ", place='" + place + '\'' +
-                ", date='" + date + '\'' +
                 '}';
     }
 }

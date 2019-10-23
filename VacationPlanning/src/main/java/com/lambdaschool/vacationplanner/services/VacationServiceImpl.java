@@ -1,6 +1,7 @@
 package com.lambdaschool.vacationplanner.services;
 
 import com.lambdaschool.vacationplanner.exceptions.ResourceNotFoundException;
+import com.lambdaschool.vacationplanner.models.User;
 import com.lambdaschool.vacationplanner.models.Vacations;
 import com.lambdaschool.vacationplanner.repository.VacationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,11 +37,10 @@ public class VacationServiceImpl implements VacationService
     }
 
     @Override
-    public Vacations save(Vacations vacations)
+    public Vacations save(Vacations vacations, User user)
     {
         Vacations newVacation = new Vacations();
         newVacation.setPlace(vacations.getPlace());
-        newVacation.setDate(vacations.getDate());
 
         return vacarepos.save(newVacation);
     }
@@ -53,11 +53,6 @@ public class VacationServiceImpl implements VacationService
         if (vacations.getPlace() != null)
         {
             currentVacation.setPlace(vacations.getPlace());
-        }
-
-        if (vacations.getDate() != null)
-        {
-            currentVacation.setDate(vacations.getDate());
         }
 
         return vacarepos.save(currentVacation);

@@ -6,7 +6,6 @@ import com.lambdaschool.vacationplanner.logging.Loggable;
 import com.lambdaschool.vacationplanner.models.Role;
 import com.lambdaschool.vacationplanner.models.User;
 import com.lambdaschool.vacationplanner.models.UserRoles;
-import com.lambdaschool.vacationplanner.models.Useremail;
 import com.lambdaschool.vacationplanner.repository.RoleRepository;
 import com.lambdaschool.vacationplanner.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
