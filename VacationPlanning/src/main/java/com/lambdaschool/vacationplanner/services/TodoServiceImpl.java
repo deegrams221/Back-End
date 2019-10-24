@@ -81,6 +81,7 @@ public class TodoServiceImpl implements TodoService
 
         userTodo.add(newTodo);
         currentUser.setTodos(userTodo);
+        newTodo.setUser(currentUser);
 
         return todorepos.save(newTodo);
     }

@@ -71,11 +71,11 @@ public class VacationController
                     message = "Vacation Not Found",
                     response = ErrorDetail.class)})
 
-    // GET: /vacations/vacations/{vacaid}
-    @GetMapping(value = "/vacations/{vacaid}",
+    // GET: /vacations/vacation/{vacaid}
+    @GetMapping(value = "/vacation/{vacaid}",
             produces = {"application/json"})
     public ResponseEntity<?> findVacationById(HttpServletRequest request,
-                                              @PathVariable long vacaid)
+                                              @PathVariable Long vacaid)
     {
         // logger
         logger.info(request.getMethod().toUpperCase()

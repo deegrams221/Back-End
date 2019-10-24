@@ -13,7 +13,7 @@ import java.util.List;
 public class Vacations extends Auditable
 {
     // Fields
-    // id, place, date, todos
+    // id, place
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long vacaid;

@@ -106,7 +106,7 @@ public class TodoController
 
     // POST:  /todos/newtodo
     //    {
-    //        "title": "Dance"
+    //        "title": "Dance",
     //        "description" : "lets dance yay"
     //    }
     @PostMapping(value = "/newtodo",

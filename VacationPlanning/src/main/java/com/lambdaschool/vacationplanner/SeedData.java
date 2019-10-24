@@ -1,9 +1,7 @@
 package com.lambdaschool.vacationplanner;
 
 import com.lambdaschool.vacationplanner.models.*;
-import com.lambdaschool.vacationplanner.repository.RoleRepository;
-import com.lambdaschool.vacationplanner.repository.UserRepository;
-import com.lambdaschool.vacationplanner.repository.VacationRepository;
+import com.lambdaschool.vacationplanner.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -23,6 +21,12 @@ public class SeedData implements CommandLineRunner
 
     @Autowired
     private VacationRepository vacarepos;
+
+    @Autowired
+    private CommentRepository comrepos;
+
+    @Autowired
+    private TodoRepository todorepos;
 
     public SeedData(RoleRepository rolerepos,
                     UserRepository userrepos)
@@ -68,15 +72,6 @@ public class SeedData implements CommandLineRunner
         user.add(new UserRoles(new User(), r2));
         User u6 = new User("Sephiroth", "password", "sephiroth@lambda.school",user);
 
-        // vacations
-        Vacations v1 = new Vacations("Hawaii", u1);
-//        u2.getVacations().add(new Vacations("Hawaii"));
-//        u2.getVacations().add(new Vacations("Spain"));
-//        u2.getVacations().add(new Vacations("New Zealand"));
-//        u3.getVacations().add(new Vacations("Rome"));
-//        u4.getVacations().add(new Vacations("Disney World"));
-//        u5.getVacations().add(new Vacations("Disneyland"));
-
         userrepos.save(u1);
         userrepos.save(u2);
         userrepos.save(u3);
@@ -84,16 +79,38 @@ public class SeedData implements CommandLineRunner
         userrepos.save(u5);
         userrepos.save(u6);
 
+        // vacations
+        Vacations v1 = new Vacations("Hawaii", u1);
+        Vacations v2 = new Vacations("Spain", u2);
+        Vacations v3 = new Vacations("New Zealand", u2);
+        Vacations v4 = new Vacations("Rome", u3);
+        Vacations v5 = new Vacations("Disney World", u4);
+        Vacations v6 = new Vacations("Disneyland", u5);
+
         vacarepos.save(v1);
+        vacarepos.save(v2);
+        vacarepos.save(v3);
+        vacarepos.save(v4);
+        vacarepos.save(v5);
+        vacarepos.save(v6);
 
         // comments
-        u3.getComments().add(new Comments("Lets go fishing!"));
-        u2.getComments().add(new Comments("I think we should go surfing!"));
-        u3.getComments().add(new Comments("Maybe we can go fishing and go surfing?"));
-        u2.getComments().add(new Comments("That sounds fun! Great idea!"));
+        Comments c1 = new Comments("Lets go fishing!", u2);
+        Comments c2 = new Comments("I think we should go surfing!", u3);
+        Comments c3 = new Comments("Maybe we can go fishing and go surfing?", u2);
+        Comments c4 = new Comments("That sounds fun! Great idea!", u3);
+
+        comrepos.save(c1);
+        comrepos.save(c2);
+        comrepos.save(c3);
+        comrepos.save(c4);
+
 
         // todos (activities)
-//        u3.getTodos().add(new Todos("Fishing", "We'll need to get some gear!", u3.getVacations().get(0), u3));
-//        u2.getTodos().add(new Todos("Surfing", "We'll need just need to rent some boards.", u2.getVacations().get(0), u2));
+        Todos t1 = new Todos("Fishing", "We'll need to get some gear!", u3);
+        Todos t2 = new Todos("Surfing", "We'll need just need to rent some boards.", u2);
+
+        todorepos.save(t1);
+        todorepos.save(t2);
     }
 }

@@ -79,6 +79,7 @@ public class CommentServiceImpl implements CommentService
 
         Comments newCom = new Comments();
         newCom.setDetail(comments.getDetail());
+        newCom.setUser(currentUser);
 
         List<Comments> userCom = currentUser.getComments();
         userCom.add(newCom);
