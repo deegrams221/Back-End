@@ -12,12 +12,8 @@ import org.junit.runners.MethodSorters;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.ArrayList;
 
 import static junit.framework.TestCase.assertEquals;
 
@@ -49,19 +45,13 @@ public class TodoServiceImplUnitTest
     // Todos findTodoById(long todoid);
     @Test
     public void findTodoById() {
-        assertEquals("Surfing", todoService.findTodoById(18).getTitle());
+        assertEquals("Surfing", todoService.findTodoById(21).getTitle());
     }
 
     // ResourceNotFoundException
     @Test(expected = ResourceNotFoundException.class)
     public void findTodoByIdNotFound() {
         assertEquals("blah blah blah", todoService.findTodoById(10).getTitle());
-    }
-
-    // Todos findByTitle(String title);
-    @Test
-    public void findByTitle() {
-        assertEquals("Fishing", todoService.findByTitle("Fishing").getTitle());
     }
 
     // ResourceNotFoundException
@@ -73,7 +63,7 @@ public class TodoServiceImplUnitTest
     // void delete(long todoid);
     @Test
     public void D_delete() {
-        todoService.delete(18);
+        todoService.delete(21);
 
     }
 
@@ -83,28 +73,24 @@ public class TodoServiceImplUnitTest
         todoService.delete(100);
     }
 
-    // Todos save(Todos todos, User user, long vacaid);
-//    @Test
-//    public void F_save()
-//    {
+    // Todos save(Todos todos, User user);
+    @Test
+    public void F_save()
+    {
 //    ArrayList<Todos> todos = new ArrayList<>();
-//    Todos t3 = new Todos("Run", "Lets go running!", vacaService.findVacationById(6), userService.findUserById(15));
-//
-//    Todos saveT3 = todoService.save(t3, userService.findUserById(15), 6);
-//
-//        System.out.println("*** DATA ***");
-//        System.out.println(saveT3);
-//        System.out.println("*** DATA ***");
-//    }
+    Todos t3 = new Todos("Run", "Lets go running!", userService.findUserById(6));
+
+    Todos saveT3 = todoService.save(t3);
+
+        System.out.println("*** DATA ***");
+        System.out.println(saveT3);
+        System.out.println("*** DATA ***");
+    }
 
     // Todos update(Todos todos, long todoid);
-//    @Test
-//    public void update()
-//    {
-//        ArrayList<Todos> todos = new ArrayList<>();
-//        Todos t2 = new Todos("Fishing", "Blah blah blah", vacaService.findVacationById(10), userService.findUserById(9));
-//    }
-
-    // void assignTodoToVacation(long todoid, long vacaid);
-
+    @Test
+    public void update()
+    {
+        Todos t2 = new Todos("Fishing", "Blah blah blah",  userService.findUserById(6));
+    }
 }

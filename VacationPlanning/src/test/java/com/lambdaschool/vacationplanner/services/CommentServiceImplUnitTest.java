@@ -16,6 +16,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+
 import static junit.framework.TestCase.assertEquals;
 
 @RunWith(SpringRunner.class)
@@ -51,14 +53,14 @@ public class CommentServiceImplUnitTest
     @Test
     public void A_findAll()
     {
-        assertEquals(13, comService.findAll(Pageable.unpaged()).size());
+        assertEquals(4, comService.findAll(Pageable.unpaged()).size());
     }
 
     // Comments findCommentById(long comid);
     @Test
     public void B_findCommentById()
     {
-        assertEquals("Lets go fishing!", comService.findCommentById(19).getDetail());
+        assertEquals("That sounds fun! Great idea!", comService.findCommentById(19).getDetail());
     }
 
     // void deleteComment(long comid);
@@ -69,17 +71,16 @@ public class CommentServiceImplUnitTest
         assertEquals(3, comService.findAll(Pageable.unpaged()).size());
     }
 
-    // Comments save(Comments comments, User user, long vacaid);
-//    @Test
-//    public void F_save()
-//    {
-//        // ArrayList<Comments> comments = new ArrayList<>();
-//        Comments c1 = new Comments("Fishing is fun!", userService.findUserById(15), vacaService.findVacationById(6));
-//
-//        Comments saveC1 = comService.save(c1, userService.findUserById(15), 6);
-//
-//        System.out.println("*** DATA ***");
-//        System.out.println(saveC1);
-//        System.out.println("*** DATA ***");
-//    }
+    // Comments save(Comments comments, User user);
+    @Test
+    public void F_save()
+    {
+        Comments c1 = new Comments("Fishing is fun!", userService.findUserById(4));
+
+        Comments saveC1 = comService.save(c1);
+
+        System.out.println("*** DATA ***");
+        System.out.println(saveC1);
+        System.out.println("*** DATA ***");
+    }
 }

@@ -30,16 +30,6 @@ public class TodoServiceImpl implements TodoService
     private UserRepository userrepos;
 
     @Override
-    public List<Todos> findAllTodos()
-    {
-        List<Todos> rtnList = new ArrayList<>();
-
-        todorepos.findAll().iterator().forEachRemaining(rtnList::add);
-
-        return rtnList;
-    }
-
-    @Override
     public Todos findTodoById(long todoid) throws ResourceNotFoundException
     {
         return todorepos.findById(todoid)

@@ -6,8 +6,6 @@ import java.util.List;
 
 public interface TodoService
 {
-    List<Todos> findAllTodos();
-
     Todos findTodoById(long todoid);
 
     Todos findByTitle(String title);

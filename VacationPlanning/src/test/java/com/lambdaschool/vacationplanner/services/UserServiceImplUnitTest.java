@@ -75,7 +75,7 @@ public class UserServiceImplUnitTest
     @Test
     public void D_delete()
     {
-        userService.delete(15);
+        userService.delete(6);
         assertEquals(5, userService.findAll(Pageable.unpaged()).size());
     }
 
@@ -204,7 +204,7 @@ public class UserServiceImplUnitTest
     @Test
     public void IB_deleteUserRole()
     {
-        userService.deleteUserRole(13, 2);
+        userService.deleteUserRole(6, 2);
     }
 
     @Test(expected = ResourceNotFoundException.class)
@@ -224,6 +224,6 @@ public class UserServiceImplUnitTest
     @Test
     public void IE_addUserRole()
     {
-        userService.addUserRole(13, 3);
+        userService.addUserRole(6, 3);
     }
 }
