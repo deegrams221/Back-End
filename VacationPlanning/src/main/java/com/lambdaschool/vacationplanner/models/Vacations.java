@@ -4,8 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.lambdaschool.vacationplanner.logging.Loggable;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Loggable
 @Entity

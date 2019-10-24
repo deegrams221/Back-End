@@ -14,6 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import static junit.framework.Assert.assertNotNull;
 import static junit.framework.TestCase.assertEquals;
 
 @RunWith(SpringRunner.class)
@@ -72,13 +73,14 @@ public class VacationServiceImplUnitTest
     @Test
     public void F_save()
     {
-        Vacations v2 = new Vacations("Oregon", userService.findUserById(6));
+        Vacations va1 = new Vacations("Hollywood", userService.findUserById(6));
+        va1.setVacaid(92);
+        Vacations addVacation = vacaService.save(va1);
 
-        Vacations saveV2 = vacaService.save(v2);
+        assertNotNull(addVacation);
 
-        System.out.println("*** DATA ***");
-        System.out.println(saveV2);
-        System.out.println("*** DATA ***");
+        Vacations foundVacation = vacaService.findVacationById(addVacation.getVacaid());
+        assertEquals(addVacation.getPlace(), foundVacation.getPlace());
     }
 
     // Vacations update(Vacations updateVacation, long vacaid);
@@ -86,13 +88,11 @@ public class VacationServiceImplUnitTest
     @Test
     public void G_update()
     {
-        Vacations v2 = new Vacations("Honolulu", userService.findUserById(4));
+        Vacations v1 = new Vacations("Honolulu", userService.findUserById(6));
+        v1.setVacaid(10);
+        Vacations vacationsR1 = vacaService.update(v1, 10);
 
-        Vacations updatedV2 = vacaService.save(v2);
-
-        System.out.println("*** DATA ***");
-        System.out.println(updatedV2);
-        System.out.println("*** DATA ***");
+        assertEquals("Honolulu", vacationsR1.getPlace());
     }
 
 }
