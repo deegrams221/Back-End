@@ -14,7 +14,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import static junit.framework.Assert.assertNotNull;
 import static junit.framework.TestCase.assertEquals;
 
 @RunWith(SpringRunner.class)
@@ -67,20 +66,6 @@ public class VacationServiceImplUnitTest
     {
         vacaService.delete(11);
         assertEquals(5, vacaService.findAllVacas().size());
-    }
-
-    // Vacations save(Vacations vacations);
-    @Test
-    public void F_save()
-    {
-        Vacations va1 = new Vacations("Hollywood", userService.findUserById(6));
-        va1.setVacaid(92);
-        Vacations addVacation = vacaService.save(va1);
-
-        assertNotNull(addVacation);
-
-        Vacations foundVacation = vacaService.findVacationById(addVacation.getVacaid());
-        assertEquals(addVacation.getPlace(), foundVacation.getPlace());
     }
 
     // Vacations update(Vacations updateVacation, long vacaid);

@@ -42,42 +42,23 @@ public class CommentController
     @ApiOperation(value = "List All Comments",
             response = Vacations.class)
     @ApiResponses(value = {
-            @ApiResponse(code = 201,
+            @ApiResponse(code = 200,
                     message = "Found Comments",
                     response = void.class),
             @ApiResponse(code = 404,
                     message = "Comments Not Found",
                     response = ErrorDetail.class)})
-    @ApiImplicitParams({@ApiImplicitParam(name = "page",
-            dataType = "integer",
-            paramType = "query",
-            value = "Results page you want to retrieve (0..N)"),
-            @ApiImplicitParam(name = "size",
-                    dataType = "integer",
-                    paramType = "query",
-                    value = "Number of records per page."),
-            @ApiImplicitParam(name = "sort",
-                    allowMultiple = true,
-                    dataType = "string",
-                    paramType = "query",
-                    value = "Sorting criteria in the format: property(,asc|desc). "
-                            + "Default sort order is ascending. "
-                            + "Multiple sort criteria are supported.")})
 
-    // paging and sorting
-    // GET:  /comments/?page=1&size=10
     // GET: /comments
     @GetMapping(value = "/comments",
             produces = {"application/json"})
-    public ResponseEntity<?> findAll(HttpServletRequest request,
-                                     @PageableDefault(page = 0, size = 5)
-                                             Pageable pageable)
+    public ResponseEntity<?> findAll(HttpServletRequest request)
     {
         // logger
         logger.trace(request.getMethod().toUpperCase()
                 + " " + request.getRequestURI() + " accessed.");
 
-        List<Comments> allCom = comService.findAll(pageable);
+        List<Comments> allCom = comService.findAll();
 
         return new ResponseEntity<>(allCom, HttpStatus.OK);
     }

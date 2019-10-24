@@ -4,11 +4,9 @@ import com.lambdaschool.vacationplanner.exceptions.ResourceNotFoundException;
 import com.lambdaschool.vacationplanner.logging.Loggable;
 import com.lambdaschool.vacationplanner.models.Comments;
 import com.lambdaschool.vacationplanner.models.User;
-import com.lambdaschool.vacationplanner.models.Vacations;
 import com.lambdaschool.vacationplanner.repository.CommentRepository;
 import com.lambdaschool.vacationplanner.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -25,16 +23,13 @@ public class CommentServiceImpl implements CommentService
     private CommentRepository comrepos;
 
     @Autowired
-    private VacationService vacationService;
-
-    @Autowired
     private UserRepository userrepos;
 
     @Override
-    public List<Comments> findAll(Pageable pageable)
+    public List<Comments> findAll()
     {
         List<Comments> list = new ArrayList<>();
-        comrepos.findAll(pageable)
+        comrepos.findAll()
                 .iterator()
                 .forEachRemaining(list::add);
         return list;
@@ -56,19 +51,6 @@ public class CommentServiceImpl implements CommentService
                 .orElseThrow(() -> new ResourceNotFoundException("Comment id " + comid + " not found!"));
         comrepos.deleteById(comid);
     }
-
-//    @Transactional
-//    @Override
-//    public Comments save(Comments comments, User user, long vacaid)
-//    {
-//        Comments newComment = new Comments();
-//        Vacations vacations = vacationService.findVacationById(vacaid);
-//        newComment.setDetail(comments.getDetail());
-//        newComment.setUser(comments.getUser());
-////        newComment.setVacations(vacations);
-//
-//        return comrepos.save(newComment);
-//    }
 
     @Transactional
     @Override

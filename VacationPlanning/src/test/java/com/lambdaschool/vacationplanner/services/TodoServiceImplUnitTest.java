@@ -27,9 +27,6 @@ public class TodoServiceImplUnitTest
     private TodoService todoService;
 
     @Autowired
-    private VacationService vacaService;
-
-    @Autowired
     private UserService userService;
 
     @Before
@@ -64,27 +61,12 @@ public class TodoServiceImplUnitTest
     @Test
     public void D_delete() {
         todoService.delete(21);
-
     }
 
     // ResourceNotFoundException
     @Test(expected = ResourceNotFoundException.class)
     public void DA_notFoundDelete() {
         todoService.delete(100);
-    }
-
-    // Todos save(Todos todos, User user);
-    @Test
-    public void F_save()
-    {
-//    ArrayList<Todos> todos = new ArrayList<>();
-    Todos t3 = new Todos("Run", "Lets go running!", userService.findUserById(6));
-
-    Todos saveT3 = todoService.save(t3);
-
-        System.out.println("*** DATA ***");
-        System.out.println(saveT3);
-        System.out.println("*** DATA ***");
     }
 
     // Todos update(Todos todos, long todoid);
