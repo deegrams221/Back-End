@@ -96,40 +96,45 @@ public class TodoController
     @ApiOperation(value = "Add a new todo",
             notes = "New todo Id will be sent to the location header",
             response = void.class)
-    @ApiResponses(value = {@ApiResponse(code = 201,
-            message = "Todo Added",
+    @ApiResponses(value = {
+            @ApiResponse(code = 201,
+            message = "Todo Created",
             response = void.class),
             @ApiResponse(code = 500,
-                    message = "Could Not Add Todo",
+                    message = "Could Not Create Todo",
                     response = ErrorDetail.class)})
 
-    // POST:  /todos/{vacaid}
-    @PostMapping(value = "/todos/{vacaid}",
+    // POST:  /todos/newtodo
+    //    {
+    //        "title": "Dance"
+    //        "description" : "lets dance yay"
+    //    }
+    @PostMapping(value = "/newtodo",
             consumes = {"application/json"},
             produces = {"application/json"})
     public ResponseEntity<?> addNewTodo(HttpServletRequest request,
                                         @Valid
-                                        @RequestBody Todos newtodo,
-                                        Authentication authentication,
-                                        @PathVariable long vacaid) throws URISyntaxException
+                                        @RequestBody Todos newtodo) throws URISyntaxException
     {
         // logger
         logger.trace(request.getMethod().toUpperCase()
                 + " " + request.getRequestURI() + " accessed.");
 
-        User user = userService.findByName(authentication.getName());
         newtodo = todoService.save(newtodo);
 
         // set the location header for the newly created resource
         HttpHeaders responseHeaders = new HttpHeaders();
-        URI newUserURI = ServletUriComponentsBuilder.fromCurrentRequest()
+        URI newTodoURI = ServletUriComponentsBuilder
+                .fromCurrentRequest()
                 .path("/{todoid}")
                 .buildAndExpand(newtodo.getTodoid())
                 .toUri();
-        responseHeaders.setLocation(newUserURI);
-
+        responseHeaders.setLocation(newTodoURI);
         return new ResponseEntity<>(null,
                 responseHeaders,
                 HttpStatus.CREATED);
+
+
     }
+
 }

@@ -160,10 +160,16 @@ public class VacationController
     @PostMapping(value = "/newvaca",
             consumes = {"application/json"},
             produces = {"application/json"})
-    public ResponseEntity<?> createVacation(@Valid
+    public ResponseEntity<?> createVacation(HttpServletRequest request,
+                                            @Valid
                                             @RequestBody Vacations newvaca) throws URISyntaxException
     {
+        // logger
+        logger.trace(request.getMethod().toUpperCase()
+                + " " + request.getRequestURI() + " accessed.");
+
         newvaca =  vacaService.save(newvaca);
+
         // set the location header for the newly created resource
         HttpHeaders responseHeaders = new HttpHeaders();
         URI newVacaURI = ServletUriComponentsBuilder
@@ -172,6 +178,8 @@ public class VacationController
                 .buildAndExpand(newvaca.getVacaid())
                 .toUri();
         responseHeaders.setLocation(newVacaURI);
-        return new ResponseEntity<>(null, responseHeaders, HttpStatus.CREATED);
+        return new ResponseEntity<>(null,
+                responseHeaders,
+                HttpStatus.CREATED);
     }
 }
