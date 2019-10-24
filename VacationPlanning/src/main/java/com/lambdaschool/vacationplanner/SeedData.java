@@ -3,6 +3,7 @@ package com.lambdaschool.vacationplanner;
 import com.lambdaschool.vacationplanner.models.*;
 import com.lambdaschool.vacationplanner.repository.RoleRepository;
 import com.lambdaschool.vacationplanner.repository.UserRepository;
+import com.lambdaschool.vacationplanner.repository.VacationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -19,6 +20,9 @@ public class SeedData implements CommandLineRunner
 
     @Autowired
     private UserRepository userrepos;
+
+    @Autowired
+    private VacationRepository vacarepos;
 
     public SeedData(RoleRepository rolerepos,
                     UserRepository userrepos)
@@ -65,13 +69,13 @@ public class SeedData implements CommandLineRunner
         User u6 = new User("Sephiroth", "password", "sephiroth@lambda.school",user);
 
         // vacations
-
-        u2.getVacations().add(new Vacations("Hawaii"));
-        u2.getVacations().add(new Vacations("Spain"));
-        u2.getVacations().add(new Vacations("New Zealand"));
-        u3.getVacations().add(new Vacations("Rome"));
-        u4.getVacations().add(new Vacations("Disney World"));
-        u5.getVacations().add(new Vacations("Disneyland"));
+        Vacations v1 = new Vacations("Hawaii", u1);
+//        u2.getVacations().add(new Vacations("Hawaii"));
+//        u2.getVacations().add(new Vacations("Spain"));
+//        u2.getVacations().add(new Vacations("New Zealand"));
+//        u3.getVacations().add(new Vacations("Rome"));
+//        u4.getVacations().add(new Vacations("Disney World"));
+//        u5.getVacations().add(new Vacations("Disneyland"));
 
         userrepos.save(u1);
         userrepos.save(u2);
@@ -79,6 +83,8 @@ public class SeedData implements CommandLineRunner
         userrepos.save(u4);
         userrepos.save(u5);
         userrepos.save(u6);
+
+        vacarepos.save(v1);
 
         // comments
         u3.getComments().add(new Comments("Lets go fishing!"));

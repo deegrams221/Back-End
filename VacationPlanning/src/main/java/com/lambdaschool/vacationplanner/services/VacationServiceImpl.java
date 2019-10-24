@@ -70,8 +70,11 @@ public class VacationServiceImpl implements VacationService
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User currentUser = userrepos.findByUsername(authentication.getName());
 
+        System.out.println(currentUser.getUsername() + "*****Print here****");
+
         Vacations newVaca = new Vacations();
         newVaca.setPlace(vacations.getPlace());
+        newVaca.setUser(currentUser);
 
         List<Vacations> userVaca = currentUser.getVacations();
         userVaca.add(newVaca);

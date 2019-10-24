@@ -29,11 +29,6 @@ public class Comments extends Auditable
 //    private Vacations vacations = new Vacations();
 
     // map many to one - user
-//    @ManyToOne
-//    @JoinColumn(name = "userid",
-//            nullable = false)
-//    @JsonIgnoreProperties("user")
-//    private User user = new User();
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userid")
     @JsonIgnoreProperties({"comments", "hibernateLazyInitializer"})
@@ -45,9 +40,10 @@ public class Comments extends Auditable
     }
 
     // constructor
-    public Comments(String detail)
+    public Comments(String detail, User user)
     {
         this.detail = detail;
+        this.user = user;
     }
 
     // getters/setters
@@ -71,13 +67,13 @@ public class Comments extends Auditable
         this.detail = detail;
     }
 
-//    public User getUser() {
-//        return user;
-//    }
-//
-//    public void setUser(User user) {
-//        this.user = user;
-//    }
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     // toString
     @Override

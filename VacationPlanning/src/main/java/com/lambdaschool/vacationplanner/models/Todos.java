@@ -43,11 +43,11 @@ public class Todos extends Auditable
     }
 
     // constructor
-    public Todos(String title, String description)
+    public Todos(String title, String description, User user)
     {
         this.title = title;
         this.description = description;
-
+        this.user = user;
     }
 
     // getters/setters
@@ -91,6 +91,14 @@ public class Todos extends Auditable
 
     public void setTodos(String todos) {
         this.todos = todos;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     // toString
