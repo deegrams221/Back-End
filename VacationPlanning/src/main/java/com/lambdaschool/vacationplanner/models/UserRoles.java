@@ -15,13 +15,14 @@ import java.util.Objects;
 public class UserRoles extends Auditable implements Serializable
 {
     // Fields
+    // map many to one - userid -> userroles
     @Id
     @ManyToOne
     @JoinColumn(name = "userid")
     @JsonIgnoreProperties("userroles")
     private User user;
 
-    // map many to one - userroles
+    // map many to one - roleid -> userroles
     @Id
     @ManyToOne
     @JoinColumn(name = "roleid")

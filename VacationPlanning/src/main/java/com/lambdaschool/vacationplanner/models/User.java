@@ -44,13 +44,6 @@ public class User extends Auditable
     @JsonIgnoreProperties("user")
     private List<UserRoles> userroles = new ArrayList<>();
 
-    // map one to many - useremails
-    @OneToMany(mappedBy = "user",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true)
-    @JsonIgnoreProperties("user")
-    private List<Useremail> useremails = new ArrayList<>();
-
     // map one to many - vacations
     @OneToMany(mappedBy = "user",
             cascade = CascadeType.ALL,
@@ -59,11 +52,18 @@ public class User extends Auditable
     private List<Vacations> vacations = new ArrayList<>();
 
     // map one to many - comments
-//    @OneToMany(mappedBy = "user",
-//            cascade = CascadeType.ALL)
-//    @JsonIgnoreProperties("user")
-//    private List<Comments> comments = new ArrayList<>();
+    @OneToMany(mappedBy = "user",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    @JsonIgnoreProperties("user")
+    private List<Comments> comments = new ArrayList<>();
 
+    // map one to many - todos
+    @OneToMany(mappedBy = "user",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    @JsonIgnoreProperties("user")
+    private List<Todos> todos = new ArrayList<>();
 
     // default constructor
     public User()
@@ -155,16 +155,6 @@ public class User extends Auditable
         this.userroles = userroles;
     }
 
-    public List<Useremail> getUseremails()
-    {
-        return useremails;
-    }
-
-    public void setUseremails(List<Useremail> useremails)
-    {
-        this.useremails = useremails;
-    }
-
     @JsonIgnore
     public List<SimpleGrantedAuthority> getAuthority()
     {
@@ -181,14 +171,30 @@ public class User extends Auditable
         return rtnList;
     }
     //
-    public List<Vacations> getVacation()
+    public List<Vacations> getVacations()
     {
         return vacations;
     }
 
-    public void setVacation(List<Vacations> vacations)
+    public void setVacations(List<Vacations> vacations)
     {
         this.vacations = vacations;
+    }
+
+    public List<Comments> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comments> comments) {
+        this.comments = comments;
+    }
+
+    public List<Todos> getTodos() {
+        return todos;
+    }
+
+    public void setTodos(List<Todos> todos) {
+        this.todos = todos;
     }
 
     // toString

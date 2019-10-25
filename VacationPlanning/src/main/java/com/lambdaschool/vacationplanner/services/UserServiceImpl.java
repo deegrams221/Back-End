@@ -6,7 +6,6 @@ import com.lambdaschool.vacationplanner.logging.Loggable;
 import com.lambdaschool.vacationplanner.models.Role;
 import com.lambdaschool.vacationplanner.models.User;
 import com.lambdaschool.vacationplanner.models.UserRoles;
-import com.lambdaschool.vacationplanner.models.Useremail;
 import com.lambdaschool.vacationplanner.repository.RoleRepository;
 import com.lambdaschool.vacationplanner.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -120,13 +119,6 @@ public class UserServiceImpl implements UserDetailsService,
         }
         newUser.setUserroles(newRoles);
 
-        for (Useremail ue : user.getUseremails())
-        {
-            newUser.getUseremails()
-                    .add(new Useremail(newUser,
-                            ue.getUseremail()));
-        }
-
         return userrepos.save(newUser);
     }
 
@@ -165,17 +157,6 @@ public class UserServiceImpl implements UserDetailsService,
             {
                 throw new ResourceFoundException(
                         "User Roles are not updated through User. See endpoint POST: users/user/{userid}/role/{roleid}");
-            }
-
-            if (user.getUseremails()
-                    .size() > 0)
-            {
-                for (Useremail ue : user.getUseremails())
-                {
-                    currentUser.getUseremails()
-                            .add(new Useremail(currentUser,
-                                    ue.getUseremail()));
-                }
             }
 
             return userrepos.save(currentUser);

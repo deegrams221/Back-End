@@ -3,11 +3,18 @@ package com.lambdaschool.vacationplanner.services;
 import com.lambdaschool.vacationplanner.exceptions.ResourceNotFoundException;
 import com.lambdaschool.vacationplanner.logging.Loggable;
 import com.lambdaschool.vacationplanner.models.Todos;
+import com.lambdaschool.vacationplanner.models.User;
 import com.lambdaschool.vacationplanner.models.Vacations;
 import com.lambdaschool.vacationplanner.repository.TodoRepository;
+import com.lambdaschool.vacationplanner.repository.UserRepository;
 import com.lambdaschool.vacationplanner.repository.VacationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Loggable
 @Service(value = "todoService")
@@ -18,6 +25,9 @@ public class TodoServiceImpl implements TodoService
 
     @Autowired
     private VacationRepository vacarepos;
+
+    @Autowired
+    private UserRepository userrepos;
 
     @Override
     public Todos findTodoById(long todoid) throws ResourceNotFoundException
@@ -51,9 +61,17 @@ public class TodoServiceImpl implements TodoService
     @Override
     public Todos save(Todos todos)
     {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User currentUser = userrepos.findByUsername(authentication.getName());
+
         Todos newTodo = new Todos();
         newTodo.setTitle(todos.getTitle());
         newTodo.setDescription(todos.getDescription());
+        List<Todos> userTodo = currentUser.getTodos();
+
+        userTodo.add(newTodo);
+        currentUser.setTodos(userTodo);
+        newTodo.setUser(currentUser);
 
         return todorepos.save(newTodo);
     }

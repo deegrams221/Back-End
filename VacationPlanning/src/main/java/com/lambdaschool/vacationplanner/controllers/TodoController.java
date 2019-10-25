@@ -3,7 +3,9 @@ package com.lambdaschool.vacationplanner.controllers;
 import com.lambdaschool.vacationplanner.logging.Loggable;
 import com.lambdaschool.vacationplanner.models.ErrorDetail;
 import com.lambdaschool.vacationplanner.models.Todos;
+import com.lambdaschool.vacationplanner.models.User;
 import com.lambdaschool.vacationplanner.services.TodoService;
+import com.lambdaschool.vacationplanner.services.UserService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -13,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -33,6 +36,9 @@ public class TodoController
 
     @Autowired
     private TodoService todoService;
+
+    @Autowired
+    private UserService userService;
 
     // Adding custom swagger documentation for find Todos By Id
     @ApiOperation(value = "find Todo By Id",
@@ -90,15 +96,20 @@ public class TodoController
     @ApiOperation(value = "Add a new todo",
             notes = "New todo Id will be sent to the location header",
             response = void.class)
-    @ApiResponses(value = {@ApiResponse(code = 201,
-            message = "Todo Added",
+    @ApiResponses(value = {
+            @ApiResponse(code = 201,
+            message = "Todo Created",
             response = void.class),
             @ApiResponse(code = 500,
-                    message = "Could Not Add Todo",
+                    message = "Could Not Create Todo",
                     response = ErrorDetail.class)})
 
-    // POST:  /todos
-    @PostMapping(value = "/todos",
+    // POST:  /todos/newtodo
+    //    {
+    //        "title": "Dance",
+    //        "description" : "lets dance yay"
+    //    }
+    @PostMapping(value = "/newtodo",
             consumes = {"application/json"},
             produces = {"application/json"})
     public ResponseEntity<?> addNewTodo(HttpServletRequest request,
@@ -113,14 +124,17 @@ public class TodoController
 
         // set the location header for the newly created resource
         HttpHeaders responseHeaders = new HttpHeaders();
-        URI newUserURI = ServletUriComponentsBuilder.fromCurrentRequest()
+        URI newTodoURI = ServletUriComponentsBuilder
+                .fromCurrentRequest()
                 .path("/{todoid}")
                 .buildAndExpand(newtodo.getTodoid())
                 .toUri();
-        responseHeaders.setLocation(newUserURI);
-
+        responseHeaders.setLocation(newTodoURI);
         return new ResponseEntity<>(null,
                 responseHeaders,
                 HttpStatus.CREATED);
+
+
     }
+
 }

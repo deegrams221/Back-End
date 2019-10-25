@@ -4,10 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.lambdaschool.vacationplanner.logging.Loggable;
 
 import javax.persistence.*;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 @Loggable
 @Entity
@@ -15,33 +11,33 @@ import java.util.List;
 public class Vacations extends Auditable
 {
     // Fields
-    // id, place, date, todos
+    // id, place
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long vacaid;
 
-    private String vacation;
-
     @Column(nullable = false)
     private String place;
 
-    @Column
-    private String pattern = "yyyy-MM-dd";
-    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-    private String date = simpleDateFormat.format(new Date());
-
     // map one to many - todos
-    @OneToMany(mappedBy = "vacations",
-            cascade = CascadeType.ALL)
-    @JsonIgnoreProperties("vacations")
-    private List<Todos> todos = new ArrayList<>();
+//    @OneToMany(mappedBy = "vacations",
+//            cascade = CascadeType.ALL)
+//    @JsonIgnoreProperties("vacations")
+//    private List<Todos> todos = new ArrayList<>();
+
+    // map one to many - comments
+//    @OneToMany(mappedBy = "vacations",
+//            cascade = CascadeType.ALL)
+//    @JsonIgnoreProperties("vacations")
+//    private List<Comments> comments = new ArrayList<>();
 
     // map many to one - user
-    @ManyToOne
-    @JoinColumn(name = "userid",
-            nullable = false)
-    @JsonIgnoreProperties({"vacations"})
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "userid", nullable = false)
+    @JsonIgnoreProperties({"vacation", "hibernateLazyInitializer"})
     private User user;
+
+
 
     // default constructor
     public Vacations()
@@ -49,15 +45,9 @@ public class Vacations extends Auditable
     }
 
     // constructors
-    public Vacations(String place, String date)
+    public Vacations(String place, User user)
     {
         this.place = place;
-        this.date = date;
-    }
-    public Vacations(String place, String date, User user)
-    {
-        this.place = place;
-        this.date = date;
         this.user = user;
     }
 
@@ -72,16 +62,6 @@ public class Vacations extends Auditable
         this.vacaid = vacaid;
     }
 
-    public String getVacation()
-    {
-        return vacation;
-    }
-
-    public void setVacation(String vacation)
-    {
-        this.vacation = vacation;
-    }
-
     public String getPlace()
     {
         return place;
@@ -92,23 +72,21 @@ public class Vacations extends Auditable
         this.place = place;
     }
 
-    public String getDate()
-    {
-        return date;
+    public User getUser() {
+        return user;
     }
 
-    public void setDate(String date)
-    {
-        this.date = date;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     // toString
+
     @Override
     public String toString() {
         return "Vacations{" +
                 "vacaid=" + vacaid +
                 ", place='" + place + '\'' +
-                ", date='" + date + '\'' +
                 '}';
     }
 }

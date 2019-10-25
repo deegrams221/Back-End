@@ -3,9 +3,12 @@ package com.lambdaschool.vacationplanner.services;
 import com.lambdaschool.vacationplanner.exceptions.ResourceNotFoundException;
 import com.lambdaschool.vacationplanner.logging.Loggable;
 import com.lambdaschool.vacationplanner.models.Comments;
+import com.lambdaschool.vacationplanner.models.User;
 import com.lambdaschool.vacationplanner.repository.CommentRepository;
+import com.lambdaschool.vacationplanner.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,11 +22,14 @@ public class CommentServiceImpl implements CommentService
     @Autowired
     private CommentRepository comrepos;
 
+    @Autowired
+    private UserRepository userrepos;
+
     @Override
-    public List<Comments> findAll(Pageable pageable)
+    public List<Comments> findAll()
     {
         List<Comments> list = new ArrayList<>();
-        comrepos.findAll(pageable)
+        comrepos.findAll()
                 .iterator()
                 .forEachRemaining(list::add);
         return list;
@@ -50,10 +56,18 @@ public class CommentServiceImpl implements CommentService
     @Override
     public Comments save(Comments comments)
     {
-        Comments newComment = new Comments();
-        newComment.setDetail(comments.getDetail());
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User currentUser = userrepos.findByUsername(authentication.getName());
 
-        return comrepos.save(newComment);
+        Comments newCom = new Comments();
+        newCom.setDetail(comments.getDetail());
+        newCom.setUser(currentUser);
+
+        List<Comments> userCom = currentUser.getComments();
+        userCom.add(newCom);
+        currentUser.setComments(userCom);
+
+        return comrepos.save(newCom);
     }
 
 }

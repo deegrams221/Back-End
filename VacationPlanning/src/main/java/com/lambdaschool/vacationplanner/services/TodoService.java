@@ -2,6 +2,8 @@ package com.lambdaschool.vacationplanner.services;
 
 import com.lambdaschool.vacationplanner.models.Todos;
 
+import java.util.List;
+
 public interface TodoService
 {
     Todos findTodoById(long todoid);

@@ -24,12 +24,18 @@ public class Todos extends Auditable
     @Column(nullable = false)
     private String description;
 
-    // one to many - vacations
-    @ManyToOne
-    @JoinColumn(name = "vacaid",
-            nullable = false)
-    @JsonIgnoreProperties({"todos"})
-    private Vacations vacations;
+    // many to one - vacations
+//    @ManyToOne
+//    @JoinColumn(name = "vacaid",
+//            nullable = false)
+//    @JsonIgnoreProperties("todos")
+//    private Vacations vacations = new Vacations();
+
+    // map many to one - user
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "userid")
+    @JsonIgnoreProperties({"todos", "hibernateLazyInitializer"})
+    private User user;
 
     // default constructor
     public Todos()
@@ -37,10 +43,11 @@ public class Todos extends Auditable
     }
 
     // constructor
-    public Todos(String title, String description)
+    public Todos(String title, String description, User user)
     {
         this.title = title;
         this.description = description;
+        this.user = user;
     }
 
     // getters/setters
@@ -78,8 +85,23 @@ public class Todos extends Auditable
         this.description = description;
     }
 
-    // toString
+    public String getTodos() {
+        return todos;
+    }
 
+    public void setTodos(String todos) {
+        this.todos = todos;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    // toString
     @Override
     public String toString()
     {
